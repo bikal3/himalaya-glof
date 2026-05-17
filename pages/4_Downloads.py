@@ -15,35 +15,36 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 
 
 # ── Helper: generate PDF bytes ────────────────────────────────────────────
-def _generate_pdf(lakes_gdf, ts_df: pd.DataFrame) -> bytes | None:
+def _generate_pdf(lakes_gdf: "gpd.GeoDataFrame", ts_df: pd.DataFrame) -> bytes | None:
     try:
         from fpdf import FPDF  # type: ignore
+        import geopandas as gpd  # noqa: F401 (used in type hint above)
 
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Helvetica", "B", 16)
-        pdf.cell(0, 10, "Nepal GLOF Explorer — Summary Report", ln=True, align="C")
+        pdf.cell(0, 10, "Nepal GLOF Explorer - Summary Report", new_x="LMARGIN", new_y="NEXT", align="C")
         pdf.set_font("Helvetica", "", 10)
-        pdf.cell(0, 8, f"Generated: {date.today().isoformat()}", ln=True, align="C")
+        pdf.cell(0, 8, f"Generated: {date.today().isoformat()}", new_x="LMARGIN", new_y="NEXT", align="C")
         pdf.ln(4)
 
         # Key stats
         pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Key Statistics", ln=True)
+        pdf.cell(0, 8, "Key Statistics", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "", 10)
         stats = [
             ("Total lakes monitored", 25),
             ("High / Very High risk lakes", lakes_gdf[lakes_gdf["risk_class"].isin(["High", "Very High"])].shape[0]),
-            ("Total lake area 2024 (km²)", round(lakes_gdf["area_km2"].sum(), 2)),
+            ("Total lake area 2024 (km2)", round(lakes_gdf["area_km2"].sum(), 2)),
             ("Earliest record year", int(ts_df["year"].min())),
             ("Latest record year", int(ts_df["year"].max())),
         ]
         for label, value in stats:
-            pdf.cell(0, 7, f"  {label}: {value}", ln=True)
+            pdf.cell(0, 7, f"  {label}: {value}", new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln(4)
         pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Top 10 Lakes by Risk Score", ln=True)
+        pdf.cell(0, 8, "Top 10 Lakes by Risk Score", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "B", 9)
         headers = ["Lake Name", "Area km²", "Risk Score", "Risk Class", "Dam Type"]
         col_widths = [50, 25, 25, 30, 30]
