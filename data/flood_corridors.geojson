@@ -1,0 +1,237 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            86.476,
+            27.885
+          ],
+          [
+            86.50933,
+            27.80167
+          ],
+          [
+            86.54267,
+            27.71833
+          ],
+          [
+            86.576,
+            27.635
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L01",
+        "lake_name": "Tsho Rolpa",
+        "risk_class": "High"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            86.93,
+            27.896
+          ],
+          [
+            86.95667,
+            27.796
+          ],
+          [
+            86.98333,
+            27.696
+          ],
+          [
+            87.01,
+            27.596
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L02",
+        "lake_name": "Imja Tsho",
+        "risk_class": "Very High"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            87.097,
+            27.812
+          ],
+          [
+            87.147,
+            27.67867
+          ],
+          [
+            87.197,
+            27.54533
+          ],
+          [
+            87.247,
+            27.412
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L03",
+        "lake_name": "Lower Barun",
+        "risk_class": "Moderate"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            84.46,
+            28.507
+          ],
+          [
+            84.5,
+            28.44033
+          ],
+          [
+            84.54,
+            28.37367
+          ],
+          [
+            84.58,
+            28.307
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L04",
+        "lake_name": "Thulagi",
+        "risk_class": "High"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            86.679,
+            27.799
+          ],
+          [
+            86.70233,
+            27.739
+          ],
+          [
+            86.72567,
+            27.679
+          ],
+          [
+            86.749,
+            27.619
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L06",
+        "lake_name": "Sabai Tsho",
+        "risk_class": "Low"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            86.695,
+            27.982
+          ],
+          [
+            86.76167,
+            27.86533
+          ],
+          [
+            86.82833,
+            27.74867
+          ],
+          [
+            86.895,
+            27.632
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L11",
+        "lake_name": "Ngozumpa Tsho",
+        "risk_class": "High"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            83.847,
+            28.686
+          ],
+          [
+            83.93033,
+            28.61267
+          ],
+          [
+            84.01367,
+            28.53933
+          ],
+          [
+            84.097,
+            28.466
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L16",
+        "lake_name": "Tilicho Lake",
+        "risk_class": "High"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            87.926,
+            27.702
+          ],
+          [
+            87.94267,
+            27.652
+          ],
+          [
+            87.95933,
+            27.602
+          ],
+          [
+            87.976,
+            27.552
+          ]
+        ]
+      },
+      "properties": {
+        "lake_id": "L19",
+        "lake_name": "Kanchenjunga Lake 1",
+        "risk_class": "High"
+      }
+    }
+  ]
+}

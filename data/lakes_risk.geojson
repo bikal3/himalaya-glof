@@ -1,0 +1,630 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.476,
+          27.885
+        ]
+      },
+      "properties": {
+        "lake_id": "L01",
+        "lake_name": "Tsho Rolpa",
+        "area_km2": 2.245,
+        "area_growth_rate": 0.02373,
+        "dam_type": "moraine",
+        "slope_downstream": 5.8,
+        "distance_to_settlement_km": 23.5,
+        "risk_score": 65.77,
+        "risk_class": "High",
+        "basin": "Rolwaling",
+        "district": "Dolakha",
+        "elevation_m": 4580,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.93,
+          27.896
+        ]
+      },
+      "properties": {
+        "lake_id": "L02",
+        "lake_name": "Imja Tsho",
+        "area_km2": 2.0461,
+        "area_growth_rate": 0.05254,
+        "dam_type": "moraine",
+        "slope_downstream": 9.2,
+        "distance_to_settlement_km": 10.0,
+        "risk_score": 83.38,
+        "risk_class": "Very High",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 5010,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.097,
+          27.812
+        ]
+      },
+      "properties": {
+        "lake_id": "L03",
+        "lake_name": "Lower Barun",
+        "area_km2": 2.1264,
+        "area_growth_rate": 0.0416,
+        "dam_type": "bedrock",
+        "slope_downstream": 7.6,
+        "distance_to_settlement_km": 34.9,
+        "risk_score": 43.6,
+        "risk_class": "Moderate",
+        "basin": "Barun",
+        "district": "Sankhuwasabha",
+        "elevation_m": 4560,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.46,
+          28.507
+        ]
+      },
+      "properties": {
+        "lake_id": "L04",
+        "lake_name": "Thulagi",
+        "area_km2": 1.5283,
+        "area_growth_rate": 0.03493,
+        "dam_type": "moraine",
+        "slope_downstream": 7.8,
+        "distance_to_settlement_km": 20.1,
+        "risk_score": 73.15,
+        "risk_class": "High",
+        "basin": "Marsyangdi",
+        "district": "Manang",
+        "elevation_m": 4050,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.571,
+          27.817
+        ]
+      },
+      "properties": {
+        "lake_id": "L05",
+        "lake_name": "Dig Tsho",
+        "area_km2": 0.6249,
+        "area_growth_rate": 0.0128,
+        "dam_type": "bedrock",
+        "slope_downstream": 5.8,
+        "distance_to_settlement_km": 17.5,
+        "risk_score": 31.43,
+        "risk_class": "Low",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 4350,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.679,
+          27.799
+        ]
+      },
+      "properties": {
+        "lake_id": "L06",
+        "lake_name": "Sabai Tsho",
+        "area_km2": 0.7686,
+        "area_growth_rate": 0.0128,
+        "dam_type": "bedrock",
+        "slope_downstream": 17.6,
+        "distance_to_settlement_km": 37.0,
+        "risk_score": 34.52,
+        "risk_class": "Low",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 4500,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.508,
+          27.843
+        ]
+      },
+      "properties": {
+        "lake_id": "L07",
+        "lake_name": "Lumding Tsho",
+        "area_km2": 0.7295,
+        "area_growth_rate": 0.0079,
+        "dam_type": "moraine",
+        "slope_downstream": 29.3,
+        "distance_to_settlement_km": 2.5,
+        "risk_score": 75.23,
+        "risk_class": "Very High",
+        "basin": "Rolwaling",
+        "district": "Dolakha",
+        "elevation_m": 4620,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.918,
+          27.873
+        ]
+      },
+      "properties": {
+        "lake_id": "L08",
+        "lake_name": "Hongu 2",
+        "area_km2": 1.5709,
+        "area_growth_rate": 0.04831,
+        "dam_type": "moraine",
+        "slope_downstream": 25.9,
+        "distance_to_settlement_km": 28.5,
+        "risk_score": 88.61,
+        "risk_class": "Very High",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 5100,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.978,
+          27.775
+        ]
+      },
+      "properties": {
+        "lake_id": "L09",
+        "lake_name": "Chamlang South",
+        "area_km2": 1.1288,
+        "area_growth_rate": 0.03506,
+        "dam_type": "moraine",
+        "slope_downstream": 11.5,
+        "distance_to_settlement_km": 61.6,
+        "risk_score": 67.55,
+        "risk_class": "High",
+        "basin": "Barun",
+        "district": "Sankhuwasabha",
+        "elevation_m": 5200,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.98,
+          27.795
+        ]
+      },
+      "properties": {
+        "lake_id": "L10",
+        "lake_name": "Chamlang North",
+        "area_km2": 1.2263,
+        "area_growth_rate": 0.0404,
+        "dam_type": "moraine",
+        "slope_downstream": 7.8,
+        "distance_to_settlement_km": 9.5,
+        "risk_score": 77.88,
+        "risk_class": "Very High",
+        "basin": "Barun",
+        "district": "Sankhuwasabha",
+        "elevation_m": 5250,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.695,
+          27.982
+        ]
+      },
+      "properties": {
+        "lake_id": "L11",
+        "lake_name": "Ngozumpa Tsho",
+        "area_km2": 1.0822,
+        "area_growth_rate": 0.00603,
+        "dam_type": "moraine",
+        "slope_downstream": 23.1,
+        "distance_to_settlement_km": 65.0,
+        "risk_score": 59.03,
+        "risk_class": "High",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 4700,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.935,
+          27.898
+        ]
+      },
+      "properties": {
+        "lake_id": "L12",
+        "lake_name": "Spillway Lake",
+        "area_km2": 1.4677,
+        "area_growth_rate": 0.0535,
+        "dam_type": "ice",
+        "slope_downstream": 21.1,
+        "distance_to_settlement_km": 77.9,
+        "risk_score": 67.45,
+        "risk_class": "High",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 5020,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.574,
+          28.214
+        ]
+      },
+      "properties": {
+        "lake_id": "L13",
+        "lake_name": "Langtang Lake 1",
+        "area_km2": 1.4768,
+        "area_growth_rate": 0.04662,
+        "dam_type": "ice",
+        "slope_downstream": 7.4,
+        "distance_to_settlement_km": 24.9,
+        "risk_score": 67.87,
+        "risk_class": "High",
+        "basin": "Langtang",
+        "district": "Rasuwa",
+        "elevation_m": 4350,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.612,
+          28.228
+        ]
+      },
+      "properties": {
+        "lake_id": "L14",
+        "lake_name": "Langtang Lake 2",
+        "area_km2": 0.6592,
+        "area_growth_rate": 0.01562,
+        "dam_type": "bedrock",
+        "slope_downstream": 31.6,
+        "distance_to_settlement_km": 30.2,
+        "risk_score": 45.2,
+        "risk_class": "Moderate",
+        "basin": "Langtang",
+        "district": "Rasuwa",
+        "elevation_m": 4400,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.416,
+          28.075
+        ]
+      },
+      "properties": {
+        "lake_id": "L15",
+        "lake_name": "Gosainkunda",
+        "area_km2": 0.8207,
+        "area_growth_rate": 0.01409,
+        "dam_type": "moraine",
+        "slope_downstream": 26.1,
+        "distance_to_settlement_km": 5.6,
+        "risk_score": 75.91,
+        "risk_class": "Very High",
+        "basin": "Langtang",
+        "district": "Rasuwa",
+        "elevation_m": 4380,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.847,
+          28.686
+        ]
+      },
+      "properties": {
+        "lake_id": "L16",
+        "lake_name": "Tilicho Lake",
+        "area_km2": 1.6312,
+        "area_growth_rate": 0.01417,
+        "dam_type": "moraine",
+        "slope_downstream": 28.2,
+        "distance_to_settlement_km": 78.8,
+        "risk_score": 63.42,
+        "risk_class": "High",
+        "basin": "Gandaki",
+        "district": "Manang",
+        "elevation_m": 4920,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.96,
+          28.53
+        ]
+      },
+      "properties": {
+        "lake_id": "L17",
+        "lake_name": "Annapurna Lake 1",
+        "area_km2": 0.7141,
+        "area_growth_rate": 0.02021,
+        "dam_type": "moraine",
+        "slope_downstream": 31.0,
+        "distance_to_settlement_km": 31.6,
+        "risk_score": 76.9,
+        "risk_class": "Very High",
+        "basin": "Annapurna",
+        "district": "Manang",
+        "elevation_m": 4650,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.98,
+          28.547
+        ]
+      },
+      "properties": {
+        "lake_id": "L18",
+        "lake_name": "Annapurna Lake 2",
+        "area_km2": 0.936,
+        "area_growth_rate": 0.03124,
+        "dam_type": "ice",
+        "slope_downstream": 24.1,
+        "distance_to_settlement_km": 30.5,
+        "risk_score": 68.67,
+        "risk_class": "High",
+        "basin": "Annapurna",
+        "district": "Manang",
+        "elevation_m": 4700,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.926,
+          27.702
+        ]
+      },
+      "properties": {
+        "lake_id": "L19",
+        "lake_name": "Kanchenjunga Lake 1",
+        "area_km2": 0.9856,
+        "area_growth_rate": 0.0266,
+        "dam_type": "moraine",
+        "slope_downstream": 15.7,
+        "distance_to_settlement_km": 54.3,
+        "risk_score": 67.09,
+        "risk_class": "High",
+        "basin": "Kanchenjunga",
+        "district": "Taplejung",
+        "elevation_m": 4480,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.94,
+          27.718
+        ]
+      },
+      "properties": {
+        "lake_id": "L20",
+        "lake_name": "Kanchenjunga Lake 2",
+        "area_km2": 0.7406,
+        "area_growth_rate": 0.01956,
+        "dam_type": "moraine",
+        "slope_downstream": 23.3,
+        "distance_to_settlement_km": 15.3,
+        "risk_score": 75.23,
+        "risk_class": "Very High",
+        "basin": "Kanchenjunga",
+        "district": "Taplejung",
+        "elevation_m": 4510,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.802,
+          29.115
+        ]
+      },
+      "properties": {
+        "lake_id": "L21",
+        "lake_name": "Dolpo Lake 1",
+        "area_km2": 1.4426,
+        "area_growth_rate": 0.03559,
+        "dam_type": "moraine",
+        "slope_downstream": 9.9,
+        "distance_to_settlement_km": 31.6,
+        "risk_score": 72.53,
+        "risk_class": "High",
+        "basin": "Dolpo",
+        "district": "Dolpa",
+        "elevation_m": 4200,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.83,
+          29.138
+        ]
+      },
+      "properties": {
+        "lake_id": "L22",
+        "lake_name": "Dolpo Lake 2",
+        "area_km2": 0.7075,
+        "area_growth_rate": 0.01197,
+        "dam_type": "bedrock",
+        "slope_downstream": 11.6,
+        "distance_to_settlement_km": 27.3,
+        "risk_score": 32.5,
+        "risk_class": "Low",
+        "basin": "Dolpo",
+        "district": "Dolpa",
+        "elevation_m": 4250,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.869,
+          27.69
+        ]
+      },
+      "properties": {
+        "lake_id": "L23",
+        "lake_name": "Mera Lake",
+        "area_km2": 0.6292,
+        "area_growth_rate": 0.01961,
+        "dam_type": "moraine",
+        "slope_downstream": 11.9,
+        "distance_to_settlement_km": 4.5,
+        "risk_score": 70.76,
+        "risk_class": "High",
+        "basin": "Hinku",
+        "district": "Solukhumbu",
+        "elevation_m": 5070,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.863,
+          27.858
+        ]
+      },
+      "properties": {
+        "lake_id": "L24",
+        "lake_name": "Ama Dablam Lake",
+        "area_km2": 0.7049,
+        "area_growth_rate": 0.02332,
+        "dam_type": "moraine",
+        "slope_downstream": 17.0,
+        "distance_to_settlement_km": 7.2,
+        "risk_score": 75.02,
+        "risk_class": "Very High",
+        "basin": "Khumbu",
+        "district": "Solukhumbu",
+        "elevation_m": 5000,
+        "last_updated": "2024-12-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.944,
+          29.108
+        ]
+      },
+      "properties": {
+        "lake_id": "L25",
+        "lake_name": "Phoksundo Lake",
+        "area_km2": 5.6732,
+        "area_growth_rate": 0.0278,
+        "dam_type": "bedrock",
+        "slope_downstream": 31.3,
+        "distance_to_settlement_km": 26.5,
+        "risk_score": 51.82,
+        "risk_class": "Moderate",
+        "basin": "Dolpo",
+        "district": "Dolpa",
+        "elevation_m": 3611,
+        "last_updated": "2024-12-31"
+      }
+    }
+  ]
+}
