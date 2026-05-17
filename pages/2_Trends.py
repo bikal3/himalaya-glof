@@ -1,6 +1,5 @@
 """Page 2 — Glacial Lake Trends 2000-2024."""
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
