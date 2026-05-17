@@ -55,7 +55,7 @@ var waterMask = mndwiComposite.gt(0.2).rename('water');
 // ── 8. Apply elevation filter (> 3500m using SRTM) ───────────────────────
 var srtm = ee.Image('USGS/SRTMGL1_003').select('elevation');
 var highElevMask = srtm.gt(3500);
-var glacialWater = waterMask.updateMask(highElevMask).updateMask(waterMask);
+var glacialWater = waterMask.updateMask(highElevMask);
 
 // ── 9. Convert water pixels to vectors ────────────────────────────────────
 var waterVectors = glacialWater.reduceToVectors({
