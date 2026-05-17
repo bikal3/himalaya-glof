@@ -1,0 +1,62 @@
+{
+  "lake_id": "L10",
+  "lake_name": "Chamlang North",
+  "last_updated": "2026-05-17",
+  "source": "demo_cache_from_timeseries",
+  "scenes": [
+    {
+      "year": 2016,
+      "date": "2016-08-15",
+      "area_km2": 0.9058,
+      "cloud_pct": 3.8
+    },
+    {
+      "year": 2017,
+      "date": "2017-08-20",
+      "area_km2": 0.9368,
+      "cloud_pct": 4.6
+    },
+    {
+      "year": 2018,
+      "date": "2018-08-12",
+      "area_km2": 0.9726,
+      "cloud_pct": 5.4
+    },
+    {
+      "year": 2019,
+      "date": "2019-08-18",
+      "area_km2": 1.0112,
+      "cloud_pct": 6.2
+    },
+    {
+      "year": 2020,
+      "date": "2020-08-10",
+      "area_km2": 1.0575,
+      "cloud_pct": 3.0
+    },
+    {
+      "year": 2021,
+      "date": "2021-08-22",
+      "area_km2": 1.0885,
+      "cloud_pct": 3.8
+    },
+    {
+      "year": 2022,
+      "date": "2022-08-08",
+      "area_km2": 1.1324,
+      "cloud_pct": 4.6
+    },
+    {
+      "year": 2023,
+      "date": "2023-08-16",
+      "area_km2": 1.187,
+      "cloud_pct": 5.4
+    },
+    {
+      "year": 2024,
+      "date": "2024-08-05",
+      "area_km2": 1.2263,
+      "cloud_pct": 6.2
+    }
+  ]
+}
