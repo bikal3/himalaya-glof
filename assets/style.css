@@ -1,0 +1,16 @@
+/* Nepal GLOF Explorer — custom overrides */
+[data-testid="stMetricValue"] {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1D9E75;
+}
+[data-testid="stSidebar"] {
+    background-color: #F1EFE8;
+}
+h1, h2, h3 {
+    color: #2C2C2A;
+}
+.stDownloadButton button {
+    background-color: #1D9E75;
+    color: white;
+}
