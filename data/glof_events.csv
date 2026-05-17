@@ -1,0 +1,21 @@
+lake_name,year,area_km2,area_growth_rate,dam_type,slope_downstream,distance_to_settlement_km,elevation_m,glof_occurred
+Dig Tsho,1985,0.12,0.018,moraine,22.0,8.0,4350,1
+Tam Pokhari,1998,0.56,0.021,moraine,18.0,12.0,4520,1
+Zhangzangbo,1981,0.45,0.015,ice,28.0,35.0,5100,1
+Lugge Tsho,1994,1.32,0.031,moraine,15.0,18.0,4620,1
+Raphstreng Tsho,1994,0.83,0.025,moraine,12.0,22.0,4540,1
+Chubda Tsho,2009,0.41,0.019,moraine,20.0,15.0,4380,1
+Shako Cho,1991,0.28,0.022,moraine,25.0,5.0,4750,1
+Longbasaba,2007,2.10,0.042,moraine,16.0,48.0,5520,1
+Qubixiang Co,2002,0.67,0.028,moraine,19.0,28.0,4900,1
+Poiqu Basin Lake,2016,0.33,0.017,ice,30.0,12.0,4800,1
+Nare Lake,2015,0.52,0.023,moraine,21.0,9.0,4650,1
+Langmale Lake,2017,0.38,0.019,moraine,24.0,11.0,4730,1
+Halji Tsho,2005,0.21,0.016,ice,26.0,6.0,4920,1
+Lower Barun Lake,2020,1.15,0.034,moraine,17.0,14.0,4680,1
+Thulagi Lake,1960,0.44,0.011,ice,32.0,40.0,4320,1
+Rolpa Area Lake,2003,1.80,0.038,moraine,14.0,18.0,4420,1
+Lhonak Lake,2023,1.65,0.041,moraine,16.0,38.0,5200,1
+Ghepan Ghat,2014,0.31,0.014,moraine,23.0,7.0,4550,1
+South Lhonak,2023,0.89,0.033,moraine,17.0,35.0,5150,1
+Sabai Tsho,1964,0.18,0.009,bedrock,12.0,55.0,3980,1
