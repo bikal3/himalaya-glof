@@ -2,7 +2,7 @@
 
 An interactive web application for mapping and analysing **Glacial Lake Outburst Flood (GLOF)** hazard across the Nepal Himalaya. It tracks 25 high-elevation glacial lakes from 2000 to 2024 using satellite imagery and applies multi-factor hazard scoring, machine learning, climate projections, and population exposure analysis.
 
-**Live app:** [share.streamlit.io](https://share.streamlit.io) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
+**Live app:** [himalaya-glof.streamlit.app](https://himalaya-glof.streamlit.app) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
 
 ![Nepal GLOF Explorer](assets/screenshot.png)
 
