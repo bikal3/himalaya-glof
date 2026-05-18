@@ -10,11 +10,12 @@ from utils.map_builder import build_glof_map
 st.title("🏔️ Nepal GLOF Explorer")
 st.markdown(
     """
-    This interactive portfolio application maps and analyses **Glacial Lake Outburst Flood (GLOF)**
-    hazard across the Nepal Himalaya. Using spectral indices derived from Landsat 8/9 satellite
-    imagery, 25 high-elevation glacial lakes are monitored for areal growth between 2000 and 2024.
-    A multi-factor hazard score — combining dam type, lake growth rate, downstream slope, and
-    proximity to settlements — is used to classify each lake as Low, Moderate, High, or Very High risk.
+    **Glacial Lake Outburst Floods (GLOFs)** are among the most destructive hazards in the Nepal
+    Himalaya — triggered when a moraine or ice dam holding a glacial lake fails catastrophically.
+    This application tracks 25 high-elevation lakes across Nepal using Landsat 8/9 satellite imagery,
+    measuring areal change from 2000 to 2024 via spectral water indices. Each lake is assigned a
+    hazard score that weighs dam type, lake growth rate, downstream slope, and proximity to
+    settlements, producing a four-tier risk classification: Low, Moderate, High, and Very High.
     """
 )
 
