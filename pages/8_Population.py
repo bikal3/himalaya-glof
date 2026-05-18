@@ -100,7 +100,7 @@ legend_html = """
 """
 m.get_root().html.add_child(folium.Element(legend_html))
 
-st_folium(m, width="100%", height=480)
+st_folium(m, use_container_width=True, height=480)
 
 st.markdown("---")
 
