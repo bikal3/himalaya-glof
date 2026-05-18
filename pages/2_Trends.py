@@ -11,21 +11,7 @@ lakes_gdf = load_lakes_gdf()
 
 PRIMARY = "#1D9E75"
 
-# ── Chart 1: cumulative monitored lakes ───────────────────────────────────
-st.subheader("Monitored Lakes Over Time")
-annual_counts = df.groupby("year")["lake_id"].nunique().reset_index()
-annual_counts.columns = ["Year", "Lakes Monitored"]
-fig1 = px.line(
-    annual_counts,
-    x="Year",
-    y="Lakes Monitored",
-    title="Number of Monitored Glacial Lakes per Year",
-    color_discrete_sequence=[PRIMARY],
-)
-fig1.update_layout(yaxis_title="Lake Count", xaxis_title="Year")
-st.plotly_chart(fig1, use_container_width=True)
-
-# ── Chart 2: top-8 lakes area time-series ────────────────────────────────
+# ── Chart 1: top-8 lakes area time-series ─────────────────────────────────
 st.subheader("Area Time-Series — Top 8 Lakes by Current Area")
 latest = df[df["year"] == df["year"].max()]
 top8_ids = latest.nlargest(8, "area_km2")["lake_id"].tolist()
