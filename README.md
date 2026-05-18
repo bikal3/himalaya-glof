@@ -4,6 +4,8 @@ An interactive web application for mapping and analysing **Glacial Lake Outburst
 
 **Live app:** [share.streamlit.io](https://share.streamlit.io) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
 
+![Nepal GLOF Explorer](assets/screenshot.png)
+
 ---
 
 ## Pages
