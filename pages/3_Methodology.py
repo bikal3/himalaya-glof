@@ -63,7 +63,8 @@ else:
 # ── Section 5: Validation ─────────────────────────────────────────────────
 st.header("5. Validation Against Known GLOF Events")
 st.markdown(
-    "We compared model risk scores against five documented GLOF events to assess prediction accuracy."
+    "Risk scores were compared against five documented GLOF events to assess whether the scoring "
+    "methodology reflects real-world hazard."
 )
 validation_df = pd.DataFrame(
     {
@@ -76,5 +77,6 @@ validation_df = pd.DataFrame(
 )
 st.dataframe(validation_df, use_container_width=True, hide_index=True)
 st.markdown(
-    "All five events fall in the **Moderate → Very High** range, validating the scoring methodology."
+    "All five events score **Moderate or above**, confirming that the hazard factors capture the "
+    "conditions that preceded real outburst floods."
 )

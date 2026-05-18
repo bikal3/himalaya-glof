@@ -13,8 +13,10 @@ CACHE_DIR = ROOT / "data" / "sentinel_cache"
 
 st.title("Change Detection")
 st.markdown(
-    "Automated comparison of Sentinel-2 derived lake areas: "
-    "earliest cached observation (baseline) vs most recent."
+    "Rapid lake expansion is one of the strongest early-warning signals for GLOF risk — "
+    "a growing lake exerts increasing pressure on its dam. This page compares each lake's "
+    "earliest Sentinel-2 observation (baseline) against the most recent, flagging any lake "
+    "that has grown more than 15% as a potential concern."
 )
 
 if not CACHE_DIR.exists() or not any(CACHE_DIR.glob("*.json")):

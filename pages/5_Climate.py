@@ -10,7 +10,13 @@ from utils.climate_projections import project_lake_area
 from utils.data_loader import load_lakes_gdf
 
 st.title("Climate Projections")
-st.markdown("Lake area forecasts to 2100 under IPCC warming scenarios.")
+st.markdown(
+    "As temperatures rise, glaciers retreat and meltwater accumulates — causing glacial lakes to "
+    "expand and their moraine dams to weaken. This page projects lake area to 2100 under two "
+    "IPCC emissions pathways: **RCP 4.5** (strong mitigation, peak warming ~2°C) and "
+    "**RCP 8.5** (high emissions, peak warming ~4°C). Larger lakes exert greater hydrostatic "
+    "pressure on their dams, directly raising outburst flood probability."
+)
 
 lakes_gdf = load_lakes_gdf()
 

@@ -15,9 +15,11 @@ ROOT = Path(__file__).parent.parent
 
 st.title("Population Exposure Analysis")
 st.markdown(
-    "Estimated population and building counts within each lake's downstream flood corridor. "
-    "Population: [WorldPop Nepal 2020](https://www.worldpop.org/) (100 m resolution). "
-    "Buildings: OpenStreetMap."
+    "Hazard alone does not determine impact — a high-risk lake above an uninhabited valley "
+    "poses far less threat than a moderate-risk lake above a densely settled floodplain. "
+    "This page estimates the population and buildings within each lake's downstream flood corridor, "
+    "combining [WorldPop Nepal 2020](https://www.worldpop.org/) (100 m resolution) with "
+    "OpenStreetMap building footprints."
 )
 
 # --- Load data ---

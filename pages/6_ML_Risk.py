@@ -16,8 +16,10 @@ MODEL_PATH = ROOT / "models" / "glof_risk_model.pkl"
 
 st.title("ML-Based Risk Scoring")
 st.markdown(
-    "A Random Forest classifier trained on the ICIMOD GLOF event catalogue "
-    "produces probability-based risk scores alongside the existing formula score."
+    "The formula-based hazard score weights factors by fixed rules. This page adds a "
+    "**Random Forest classifier** trained on confirmed GLOF events from the ICIMOD catalogue, "
+    "letting the data determine which factors matter most. Where the two scores diverge, "
+    "the scatter plot below highlights lakes the formula may be over- or under-rating."
 )
 
 # Load data
