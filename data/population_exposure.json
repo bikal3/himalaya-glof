@@ -1,0 +1,202 @@
+[
+  {
+    "lake_id": "L01",
+    "lake_name": "Tsho Rolpa",
+    "corridor_area_km2": 130.55,
+    "population_at_risk": 262,
+    "buildings_at_risk": 53,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L02",
+    "lake_name": "Imja Tsho",
+    "corridor_area_km2": 149.75,
+    "population_at_risk": 334,
+    "buildings_at_risk": 3,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L03",
+    "lake_name": "Lower Barun",
+    "corridor_area_km2": 200.26,
+    "population_at_risk": 7883,
+    "buildings_at_risk": 2999,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L04",
+    "lake_name": "Thulagi",
+    "corridor_area_km2": 113.02,
+    "population_at_risk": 905,
+    "buildings_at_risk": 0,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L05",
+    "lake_name": "Dig Tsho",
+    "corridor_area_km2": 92.6,
+    "population_at_risk": 91,
+    "buildings_at_risk": 51,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L06",
+    "lake_name": "Sabai Tsho",
+    "corridor_area_km2": 97.27,
+    "population_at_risk": 507,
+    "buildings_at_risk": 1719,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L07",
+    "lake_name": "Lumding Tsho",
+    "corridor_area_km2": 92.59,
+    "population_at_risk": 435,
+    "buildings_at_risk": 36,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L08",
+    "lake_name": "Hongu 2",
+    "corridor_area_km2": 92.64,
+    "population_at_risk": 57,
+    "buildings_at_risk": 3,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L09",
+    "lake_name": "Chamlang South",
+    "corridor_area_km2": 92.64,
+    "population_at_risk": 214,
+    "buildings_at_risk": 0,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L10",
+    "lake_name": "Chamlang North",
+    "corridor_area_km2": 92.64,
+    "population_at_risk": 150,
+    "buildings_at_risk": 0,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L11",
+    "lake_name": "Ngozumpa Tsho",
+    "corridor_area_km2": 187.2,
+    "population_at_risk": 226,
+    "buildings_at_risk": 447,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L12",
+    "lake_name": "Spillway Lake",
+    "corridor_area_km2": 92.64,
+    "population_at_risk": 61,
+    "buildings_at_risk": 4,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L13",
+    "lake_name": "Langtang Lake 1",
+    "corridor_area_km2": 92.5,
+    "population_at_risk": 268,
+    "buildings_at_risk": 192,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L14",
+    "lake_name": "Langtang Lake 2",
+    "corridor_area_km2": 92.51,
+    "population_at_risk": 267,
+    "buildings_at_risk": 8,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L15",
+    "lake_name": "Gosainkunda",
+    "corridor_area_km2": 92.49,
+    "population_at_risk": 8105,
+    "buildings_at_risk": 3928,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L16",
+    "lake_name": "Tilicho Lake",
+    "corridor_area_km2": 150.78,
+    "population_at_risk": 180,
+    "buildings_at_risk": 2,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L17",
+    "lake_name": "Annapurna Lake 1",
+    "corridor_area_km2": 92.39,
+    "population_at_risk": 2261,
+    "buildings_at_risk": 1206,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L18",
+    "lake_name": "Annapurna Lake 2",
+    "corridor_area_km2": 92.39,
+    "population_at_risk": 1361,
+    "buildings_at_risk": 277,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L19",
+    "lake_name": "Kanchenjunga Lake 1",
+    "corridor_area_km2": 82.28,
+    "population_at_risk": 141,
+    "buildings_at_risk": 58,
+    "data_source": "real"
+  },
+  {
+    "lake_id": "L20",
+    "lake_name": "Kanchenjunga Lake 2",
+    "corridor_area_km2": 92.76,
+    "population_at_risk": 186,
+    "buildings_at_risk": 54,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L21",
+    "lake_name": "Dolpo Lake 1",
+    "corridor_area_km2": 92.35,
+    "population_at_risk": 3703,
+    "buildings_at_risk": 1836,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L22",
+    "lake_name": "Dolpo Lake 2",
+    "corridor_area_km2": 92.35,
+    "population_at_risk": 3308,
+    "buildings_at_risk": 1398,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L23",
+    "lake_name": "Mera Lake",
+    "corridor_area_km2": 92.63,
+    "population_at_risk": 471,
+    "buildings_at_risk": 1450,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L24",
+    "lake_name": "Ama Dablam Lake",
+    "corridor_area_km2": 92.63,
+    "population_at_risk": 78,
+    "buildings_at_risk": 13,
+    "data_source": "synthetic"
+  },
+  {
+    "lake_id": "L25",
+    "lake_name": "Phoksundo Lake",
+    "corridor_area_km2": 92.35,
+    "population_at_risk": 1090,
+    "buildings_at_risk": 77,
+    "data_source": "synthetic"
+  }
+]
