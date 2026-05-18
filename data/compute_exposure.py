@@ -74,7 +74,7 @@ def build_corridor_polygons(
     """
     Build ±2 km buffered corridor Polygons for all 25 lakes.
 
-    - Lakes in REAL_CORRIDOR_LAKES: buffer the existing LineString from corridors_gdf.
+    - Lakes present in corridors_gdf: buffer the existing LineString geometry.
     - All other lakes: create synthetic LineString from centroid going CORRIDOR_LENGTH_DEG south,
       then buffer.
 
