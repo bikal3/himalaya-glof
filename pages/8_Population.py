@@ -13,12 +13,6 @@ from utils.exposure import load_buffered_corridors, load_exposure
 
 ROOT = Path(__file__).parent.parent
 
-st.set_page_config(
-    page_title="Population Exposure | GLOF Explorer",
-    layout="wide",
-    page_icon="👥",
-)
-
 st.title("Population Exposure Analysis")
 st.markdown(
     "Estimated population and building counts within each lake's downstream flood corridor. "

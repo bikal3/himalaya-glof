@@ -4,7 +4,6 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Methodology", layout="wide", page_icon="📋")
 st.title("Methodology")
 
 # ── Section 1: Lake Detection ─────────────────────────────────────────────

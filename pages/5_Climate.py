@@ -9,8 +9,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.climate_projections import project_lake_area
 from utils.data_loader import load_lakes_gdf
 
-st.set_page_config(page_title="Climate Projections | GLOF Explorer", layout="wide", page_icon="🌡")
-
 st.title("Climate Projections")
 st.markdown("Lake area forecasts to 2100 under IPCC warming scenarios.")
 

@@ -4,7 +4,6 @@ import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
 
-st.set_page_config(page_title="Trends", layout="wide", page_icon="📈")
 st.title("Glacial Lake Trends 2000–2024")
 
 df = load_timeseries()

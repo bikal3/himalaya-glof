@@ -5,7 +5,6 @@ from streamlit_folium import st_folium
 from utils.data_loader import load_corridors_gdf, load_lakes_gdf, load_timeseries
 from utils.map_builder import build_glof_map
 
-st.set_page_config(page_title="GLOF Hazard Map", layout="wide", page_icon="🗺️")
 st.title("Interactive GLOF Hazard Map")
 
 lakes_gdf = load_lakes_gdf()

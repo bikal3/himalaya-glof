@@ -8,7 +8,6 @@ import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
 
-st.set_page_config(page_title="Downloads", layout="wide", page_icon="⬇️")
 st.title("Data Downloads")
 
 DATA_DIR = Path(__file__).parent.parent / "data"

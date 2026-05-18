@@ -11,8 +11,6 @@ from utils.change_detection import compute_changes, get_cache_last_updated
 ROOT = Path(__file__).parent.parent
 CACHE_DIR = ROOT / "data" / "sentinel_cache"
 
-st.set_page_config(page_title="Change Detection | GLOF Explorer", layout="wide", page_icon="🛰")
-
 st.title("Change Detection")
 st.markdown(
     "Automated comparison of Sentinel-2 derived lake areas: "

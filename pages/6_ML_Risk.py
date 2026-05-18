@@ -14,8 +14,6 @@ from utils.ml_model import load_model, predict_proba, FEATURES
 ROOT = Path(__file__).parent.parent
 MODEL_PATH = ROOT / "models" / "glof_risk_model.pkl"
 
-st.set_page_config(page_title="ML Risk Scoring | GLOF Explorer", layout="wide", page_icon="🤖")
-
 st.title("ML-Based Risk Scoring")
 st.markdown(
     "A Random Forest classifier trained on the ICIMOD GLOF event catalogue "
