@@ -38,7 +38,7 @@ def _generate_pdf(lakes_gdf, ts_df: pd.DataFrame) -> bytes | None:
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Helvetica", "B", 16)
-        pdf.cell(0, 10, "Nepal GLOF Explorer — Summary Report",
+        pdf.cell(0, 10, "Nepal GLOF Explorer - Summary Report",
                  new_x="LMARGIN", new_y="NEXT", align="C")
         pdf.set_font("Helvetica", "", 10)
         pdf.cell(0, 8, f"Generated: {date.today().isoformat()}",
