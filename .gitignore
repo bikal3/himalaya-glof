@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+data/worldpop_nepal_2020.tif
