@@ -13,6 +13,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -69,6 +70,8 @@ PAGES = [
     ("downloads.html", "Downloads", "⬇️", "Reference", "Data Downloads",
      "Every dataset behind the app, free to download."),
 ]
+
+ASSETS: dict[str, str] = {}   # {"style.css": "style.4f2a1c9e.css"}, filled by copy_static
 
 DESCRIPTIONS = {f: desc for f, _, _, _, _, desc in PAGES}
 TITLES = {f: title for f, _, _, _, title, _ in PAGES}
@@ -192,9 +195,9 @@ def layout(filename: str, title: str, description: str, body: str,
         tail += '<script src="/vendor/leaflet.js"></script>'
     if needs_plotly:
         tail += '<script src="/vendor/plotly-basic.min.js"></script>'
-    tail += '<script src="/assets/common.js"></script>'
+    tail += f'<script src="/assets/{ASSETS.get("common.js", "common.js")}"></script>'
     for s in scripts or []:
-        tail += f'<script src="/assets/{s}"></script>'
+        tail += f'<script src="/assets/{ASSETS.get(s, s)}"></script>'
 
     canonical = f"{SITE_URL}{url_for(filename)}"
     full_title = "Nepal GLOF Explorer" if filename == "index.html" \
@@ -216,7 +219,7 @@ def layout(filename: str, title: str, description: str, body: str,
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#F1EFE8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/{ASSETS.get("style.css", "style.css")}">
 {head_extra}
 </head>
 <body>
@@ -847,7 +850,13 @@ Science, University of Southampton. Licence: CC BY 4.0.</p>
 # ══════════════════════════════════════════════════════════════════════════════
 # Static file copying
 # ══════════════════════════════════════════════════════════════════════════════
-def copy_static(out: Path) -> None:
+def copy_static(out: Path) -> dict[str, str]:
+    """Copy assets, fingerprinting each with a content hash.
+
+    style.css becomes style.4f2a1c9e.css, so a redeploy publishes a new URL and a
+    browser holding the previous file cannot show stale styling against new markup.
+    Returns {original name: hashed name} for the page templates to link against.
+    """
     shutil.copytree(SITE / "assets", out / "assets", dirs_exist_ok=True)
     shutil.copytree(SITE / "vendor", out / "vendor", dirs_exist_ok=True)
 
@@ -868,6 +877,16 @@ def copy_static(out: Path) -> None:
         with zipfile.ZipFile(data_out / "sentinel_cache.zip", "w", zipfile.ZIP_DEFLATED) as zf:
             for f in sorted(cache_dir.glob("*.json")):
                 zf.write(f, arcname=f"sentinel_cache/{f.name}")
+
+    fingerprints: dict[str, str] = {}
+    for f in sorted((out / "assets").iterdir()):
+        if not f.is_file():
+            continue
+        digest = hashlib.md5(f.read_bytes()).hexdigest()[:8]
+        hashed = f"{f.stem}.{digest}{f.suffix}"
+        f.rename(f.with_name(hashed))
+        fingerprints[f.name] = hashed
+    return fingerprints
 
 
 def write_pdf(out: Path, lakes: gpd.GeoDataFrame, ts: pd.DataFrame) -> None:
@@ -936,7 +955,7 @@ def write_meta(out: Path) -> None:
   Content-Security-Policy: default-src 'self'; img-src 'self' data: https://*.tile.openstreetmap.org https://server.arcgisonline.com https://*.basemaps.cartocdn.com; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'
 
 /assets/*
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=31536000, immutable
 
 /vendor/*
   Cache-Control: public, max-age=31536000, immutable
@@ -995,7 +1014,8 @@ def main(argv=None) -> None:
           f"{len(d['climate'])} projections, ML {'ready' if d['ml']['available'] else 'missing'}")
 
     print("Step 2: Copying static assets and datasets…")
-    copy_static(out)
+    ASSETS.update(copy_static(out))
+    print(f"  fingerprinted {len(ASSETS)} assets")
     write_site_data(d, out)
     write_pdf(out, gpd.read_file(ROOT / "data" / "lakes_risk.geojson"), d["timeseries"])
 
