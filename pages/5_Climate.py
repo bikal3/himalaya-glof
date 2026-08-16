@@ -8,6 +8,8 @@ import streamlit as st
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.climate_projections import fractional_growth_rate, project_lake_area
 from utils.data_loader import load_lakes_gdf
+from utils.provenance import page_notice
+from utils.provenance_text import CLIMATE_NOTICE
 
 st.title("Climate Projections")
 st.markdown(
@@ -124,9 +126,4 @@ st.info(
     "RCP 4.5 increment: +0.008/yr; RCP 8.5 increment: +0.014/yr above observed growth rate. "
     "Uncertainty bands represent ±1σ from the published variance."
 )
-st.caption(
-    "⚠️ Demonstration data — the starting area and observed growth rate are simulated. Note also "
-    "that this is unconstrained exponential growth: it has no basin, dam-freeboard or meltwater "
-    "limit, so values compound indefinitely and the late-century end of the curve should be read "
-    "as a trend direction, not a forecast."
-)
+page_notice(CLIMATE_NOTICE)

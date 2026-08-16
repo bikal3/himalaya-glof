@@ -8,6 +8,7 @@ from streamlit_folium import st_folium
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.exposure import load_buffered_corridors, load_exposure
+from utils.provenance_text import POPULATION_NOTICE
 
 ROOT = Path(__file__).parent.parent
 
@@ -19,12 +20,7 @@ st.markdown(
     "combining [WorldPop Nepal 2020](https://www.worldpop.org/) (100 m resolution) with "
     "OpenStreetMap building footprints."
 )
-st.caption(
-    "⚠️ The population and building counts here are **real**, but they are summed over flood "
-    "corridors derived from the simulated lake inventory — 8 corridors digitised from valley "
-    "topography and 17 straight ±2 km centroid paths. The totals are real people counted inside "
-    "illustrative corridors, not a flood model."
-)
+st.caption(POPULATION_NOTICE)
 
 # --- Load data ---
 try:

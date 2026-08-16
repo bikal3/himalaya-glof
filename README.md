@@ -10,7 +10,7 @@ An interactive web application demonstrating a **Glacial Lake Outburst Flood (GL
 >
 > To run the app on real data, load a real inventory with `data/fetch_icimod.py` and real imagery with `data/fetch_sentinel.py`. Do not use the shipped figures for planning, early warning or risk communication.
 
-**Live app:** [himalaya-glof.streamlit.app](https://himalaya-glof.streamlit.app) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
+**Live site:** [himalayaglof.bikal3.com.np](https://himalayaglof.bikal3.com.np) (static, Cloudflare Pages) &nbsp;|&nbsp; **Streamlit version:** [himalaya-glof.streamlit.app](https://himalaya-glof.streamlit.app) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
 
 ![Nepal GLOF Explorer](assets/screenshot.png)
 
@@ -124,6 +124,31 @@ A 2000–2024 Landsat record spans three sensors — Landsat 5 TM and 7 ETM+ for
 3. Click **Run**, then export results to Google Drive via the **Tasks** panel.
 
 ---
+
+## Static site (Cloudflare Pages)
+
+The same content is published as a static site with no Python server: `site/build.py` loads the
+same data through the same `utils/` modules, precomputes every hazard score, projection, ML
+probability and change figure, and writes `dist/` as plain HTML + JSON. The browser only
+renders — it never recomputes a number — so the static site and the Streamlit app cannot
+disagree. Leaflet and Plotly are vendored in `site/vendor/`, so the page loads nothing from a
+third-party CDN.
+
+```bash
+python site/build.py            # build into dist/
+python site/build.py --serve    # build, then preview on http://localhost:8000
+
+wrangler pages deploy dist --project-name himalaya-glof --branch main
+```
+
+`dist/` is generated and gitignored — rebuild it after changing any data file or util.
+
+```
+site/
+  build.py          # generates dist/ from data/ + utils/
+  assets/           # style.css and one JS file per interactive page
+  vendor/           # Leaflet + Plotly, vendored (no CDN at runtime)
+```
 
 ## Deploy on Streamlit Community Cloud
 

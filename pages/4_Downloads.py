@@ -8,6 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
+from utils.provenance_text import DOWNLOADS_NOTICE
 
 st.title("Data Downloads")
 st.markdown(
@@ -15,12 +16,7 @@ st.markdown(
     "Files under 1 MB download instantly. The WorldPop raster (~100 MB) must be "
     "fetched separately — instructions are provided."
 )
-st.warning(
-    "**Lake areas, growth rates, dam types, slopes and settlement distances in these files are "
-    "simulated** (`data/generate_data.py`), as are every hazard score, risk class and change "
-    "figure derived from them. Population and building counts are real. See the Methodology "
-    "page for a full provenance table before reusing any of this data."
-)
+st.warning(DOWNLOADS_NOTICE)
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 MODELS_DIR = Path(__file__).parent.parent / "models"

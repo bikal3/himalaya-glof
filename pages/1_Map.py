@@ -6,9 +6,10 @@ from streamlit_folium import st_folium
 from utils.data_loader import load_corridors_gdf, load_lakes_gdf, load_timeseries
 from utils.map_builder import build_glof_map
 from utils.provenance import page_notice
+from utils.provenance_text import MAP_NOTICE
 
 st.title("Interactive GLOF Hazard Map")
-page_notice("hazard scores and risk classes are computed from simulated lake attributes.")
+page_notice(MAP_NOTICE)
 
 lakes_gdf = load_lakes_gdf()
 corridors_gdf = load_corridors_gdf()

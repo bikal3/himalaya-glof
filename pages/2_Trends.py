@@ -4,9 +4,10 @@ import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
 from utils.provenance import page_notice
+from utils.provenance_text import TRENDS_NOTICE
 
 st.title("Glacial Lake Trends 2000–2024")
-page_notice("the area series plotted here is simulated, not measured from imagery.")
+page_notice(TRENDS_NOTICE)
 
 df = load_timeseries()
 lakes_gdf = load_lakes_gdf()

@@ -4,13 +4,11 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from utils.provenance_text import METHODOLOGY_NOTICE, PROVENANCE_ROWS
+
 st.title("Methodology")
 
-st.warning(
-    "**The numbers in this app are simulated.** This page documents the method the app "
-    "implements and the pipeline it is designed to run on — see *Data Provenance* below for "
-    "exactly which values are measured and which are generated."
-)
+st.warning(METHODOLOGY_NOTICE)
 
 # ── Section 1: Lake Detection ─────────────────────────────────────────────
 st.header("1. Lake Detection")
@@ -73,36 +71,7 @@ st.header("5. Data Provenance")
 st.markdown(
     "Which numbers in this application are measured, and which are generated for demonstration:"
 )
-provenance_df = pd.DataFrame(
-    {
-        "Value": [
-            "Lake names, coordinates, basin, district, elevation",
-            "Lake area 2000–2024",
-            "Area growth rate",
-            "Dam type",
-            "Downstream slope, distance to settlement",
-            "Hazard score and risk class",
-            "Sentinel-2 change detection cache",
-            "GLOF event catalogue",
-            "ML probabilities and climate projections",
-            "Population and building counts",
-            "Flood corridors",
-        ],
-        "Source": [
-            "Real — published lake inventories",
-            "Simulated — data/generate_data.py",
-            "Simulated — data/generate_data.py",
-            "Simulated — random draw, weighted toward moraine",
-            "Simulated — random draw",
-            "Computed from the simulated inputs above",
-            "Derived from the simulated series (data/create_demo_cache.py)",
-            "Real events, unverified attribute values; HKH-wide, not Nepal-only",
-            "Computed from the simulated inputs above",
-            "Real — WorldPop 2020 (100 m) and OpenStreetMap",
-            "8 digitised from valley topography; 17 synthetic centroid paths",
-        ],
-    }
-)
+provenance_df = pd.DataFrame(PROVENANCE_ROWS, columns=["Value", "Source"])
 st.dataframe(provenance_df, width="stretch", hide_index=True)
 st.info(
     "Because the hazard inputs are simulated, this app carries **no validation against "

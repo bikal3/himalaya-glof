@@ -17,3 +17,6 @@ cache/
 
 # Internal planning docs — not published
 docs/
+
+# Generated static site — rebuild with `python site/build.py`
+dist/

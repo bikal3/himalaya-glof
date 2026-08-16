@@ -9,6 +9,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.data_loader import load_lakes_gdf
 from utils.ml_model import load_model, predict_proba, FEATURES
+from utils.provenance_text import ML_NOTICE
 
 ROOT = Path(__file__).parent.parent
 MODEL_PATH = ROOT / "models" / "glof_risk_model.pkl"
@@ -20,14 +21,7 @@ st.markdown(
     "which factors matter most. Where the two scores diverge, the scatter plot below highlights "
     "lakes the formula may be over- or under-rating."
 )
-st.warning(
-    "**These probabilities do not measure GLOF risk.** Positive examples come from the event "
-    "catalogue and negative examples from the simulated lake inventory, so the classifier can "
-    "separate the two classes on artefacts of how each file was written rather than on hazard: "
-    "a model trained only on *\"is this value a round number?\"* separates them perfectly "
-    "(AUC 1.00). Cross-validation scores from this setup measure provenance, not skill. Treat "
-    "the page as a demonstration of the workflow."
-)
+st.warning(ML_NOTICE)
 
 # Load data
 lakes_gdf = load_lakes_gdf()
