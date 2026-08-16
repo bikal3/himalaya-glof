@@ -47,17 +47,31 @@ from utils.provenance_text import (
 SITE_URL = "https://himalayaglof.bikal3.com.np"
 REPO_URL = "https://github.com/bikal3/himalaya-glof"
 
+# file, nav label, icon, sidebar group, page title (matches st.title), meta description.
+# Groups and icons mirror the st.navigation call in app.py.
 PAGES = [
-    ("index.html", "Home", "Overview metrics and a map of all 25 monitored glacial lakes."),
-    ("map.html", "Risk Map", "Filter 25 Nepal glacial lakes by basin, risk class and area."),
-    ("trends.html", "Lake Trends", "Lake area 2000–2024, basin totals and risk score spread."),
-    ("climate.html", "Climate Projections", "Lake area projected to 2100 under RCP 4.5 and 8.5."),
-    ("ml.html", "ML Risk Scoring", "Random Forest GLOF probability against the formula score."),
-    ("change.html", "Change Detection", "Baseline vs latest lake area, with a 15% alert threshold."),
-    ("population.html", "Population Exposure", "WorldPop and OpenStreetMap counts per flood corridor."),
-    ("methodology.html", "Methodology", "Spectral indices, hazard scoring, data sources and provenance."),
-    ("downloads.html", "Downloads", "Every dataset behind the app, free to download."),
+    ("index.html", "Home", "🏔️", "", "🏔️ Nepal GLOF Explorer",
+     "Overview metrics and a map of all 25 monitored glacial lakes."),
+    ("map.html", "Risk Map", "🗺️", "Explore Data", "Interactive GLOF Hazard Map",
+     "Filter 25 Nepal glacial lakes by basin, risk class and area."),
+    ("trends.html", "Lake Trends", "📈", "Explore Data", "Glacial Lake Trends 2000–2024",
+     "Lake area 2000–2024, basin totals and risk score spread."),
+    ("climate.html", "Climate Projections", "🌡️", "Analysis", "Climate Projections",
+     "Lake area projected to 2100 under RCP 4.5 and 8.5."),
+    ("ml.html", "ML Risk Scoring", "🤖", "Analysis", "ML-Based Risk Scoring",
+     "Random Forest GLOF probability against the formula score."),
+    ("change.html", "Change Detection", "🛰️", "Analysis", "Change Detection",
+     "Baseline vs latest lake area, with a 15% alert threshold."),
+    ("population.html", "Population Exposure", "👥", "Analysis", "Population Exposure Analysis",
+     "WorldPop and OpenStreetMap counts per flood corridor."),
+    ("methodology.html", "Methodology", "📋", "Reference", "Methodology",
+     "Spectral indices, hazard scoring, data sources and provenance."),
+    ("downloads.html", "Downloads", "⬇️", "Reference", "Data Downloads",
+     "Every dataset behind the app, free to download."),
 ]
+
+DESCRIPTIONS = {f: desc for f, _, _, _, _, desc in PAGES}
+TITLES = {f: title for f, _, _, _, title, _ in PAGES}
 
 RISK_ORDER = ["Very High", "High", "Moderate", "Low"]
 TIER_COLOR = {"High": "#E63946", "Medium": "#F4A261", "Low": "#1D9E75"}
@@ -143,13 +157,33 @@ def risk_pill(risk_class: str) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 # Page shell
 # ══════════════════════════════════════════════════════════════════════════════
+def sidebar(filename: str) -> str:
+    """Grouped navigation matching the st.navigation call in app.py."""
+    out = []
+    current_group = None
+    for f, label, icon, group, _, _ in PAGES:
+        if group != current_group:
+            if group:
+                out.append(f'<div class="group-label">{esc(group)}</div>')
+            current_group = group
+        active = ' aria-current="page"' if f == filename else ""
+        out.append(
+            f'<a class="nav-item" href="{url_for(f)}"{active}>'
+            f'<span class="icon" aria-hidden="true">{icon}</span>{esc(label)}</a>'
+        )
+    return f"""<aside class="sidebar" id="sidebar">
+  <nav aria-label="Pages">{"".join(out)}</nav>
+  <hr>
+  <p class="warn">⚠️ Demonstration data — not for operational or emergency use</p>
+  <p class="caption">25 glacial lakes · Nepal Himalaya · 2000–2024</p>
+  <a class="badge" href="{REPO_URL}"><span class="left">GitHub</span><span
+     class="right">bikal3/himalaya-glof</span></a>
+</aside>"""
+
+
 def layout(filename: str, title: str, description: str, body: str,
            scripts: list[str] | None = None, needs_leaflet: bool = False,
            needs_plotly: bool = False) -> str:
-    nav = "".join(
-        f'<a href="{url_for(f)}"{" aria-current=\"page\"" if f == filename else ""}>{esc(label)}</a>'
-        for f, label, _ in PAGES
-    )
     head_extra = ""
     if needs_leaflet:
         head_extra += '<link rel="stylesheet" href="/vendor/leaflet.css">'
@@ -187,27 +221,24 @@ def layout(filename: str, title: str, description: str, body: str,
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="masthead">
-  <div class="masthead-inner">
-    <h1><a href="/">🏔️ Nepal GLOF Explorer</a></h1>
-    <p class="tagline">25 glacial lakes · Nepal Himalaya · 2000–2024 · demonstration data</p>
-    <nav class="tabs" aria-label="Sections">{nav}</nav>
-  </div>
-</header>
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle navigation"
+        aria-controls="sidebar" aria-expanded="false">☰</button>
+<div class="app">
+{sidebar(filename)}
 <main id="main">
+<h1 class="page-title">{esc(TITLES.get(filename, title))}</h1>
 {body}
-</main>
 <footer>
-  <div class="footer-inner">
-    <p><strong>Demonstration data — not for operational or emergency use.</strong>
-       Lake attributes are simulated; see <a href="/methodology#provenance">Data
-       Provenance</a>.</p>
-    <p>Population: WorldPop Nepal 2020 (© WorldPop, CC BY 4.0). Buildings: ©
-       OpenStreetMap contributors (ODbL). Basemap tiles: © OpenStreetMap contributors, Esri.
-       Source code: <a href="{REPO_URL}">github.com/bikal3/himalaya-glof</a>.</p>
-    <p>Built {date.today().isoformat()}.</p>
-  </div>
+  <p><strong>Demonstration data — not for operational or emergency use.</strong>
+     Lake attributes are simulated; see <a href="/methodology#provenance">Data
+     Provenance</a>.</p>
+  <p>Population: WorldPop Nepal 2020 (© WorldPop, CC BY 4.0). Buildings: ©
+     OpenStreetMap contributors (ODbL). Basemap tiles: © OpenStreetMap contributors, Esri.
+     Source code: <a href="{REPO_URL}">github.com/bikal3/himalaya-glof</a>.</p>
+  <p>Built {date.today().isoformat()}.</p>
 </footer>
+</main>
+</div>
 {tail}
 </body>
 </html>
@@ -359,6 +390,8 @@ def page_home(d: dict) -> str:
   {metric("Area Change since 2000", f"{area_2024 - area_2000:+.1f} km²")}
 </div>
 
+<hr>
+
 <h2>Overview Map</h2>
 <p class="muted">All 25 lakes, sized by area and coloured by risk class, with the eight
 digitised downstream flood corridors. Click a lake for detail.</p>
@@ -377,7 +410,7 @@ digitised downstream flood corridors. Click a lake for detail.</p>
     <a class="dl" href="/population">Open Exposure</a></div>
 </div>
 """
-    return layout("index.html", "Home", PAGES[0][2], body,
+    return layout("index.html", "Home", DESCRIPTIONS[PAGES[0][0]], body,
                   scripts=["home-page.js"], needs_leaflet=True)
 
 
@@ -395,7 +428,6 @@ def page_map(d: dict) -> str:
     lo, hi = min(areas), max(areas)
 
     body = f"""
-<h2>Interactive GLOF Hazard Map</h2>
 {notice(MAP_NOTICE)}
 
 <div class="controls">
@@ -435,7 +467,7 @@ def page_map(d: dict) -> str:
 </div>
 <p class="muted" id="empty-msg" hidden>No lakes match these filters.</p>
 """
-    return layout("map.html", "Risk Map", PAGES[1][2], body,
+    return layout("map.html", "Risk Map", DESCRIPTIONS[PAGES[1][0]], body,
                   scripts=["map-page.js"], needs_leaflet=True)
 
 
@@ -447,7 +479,6 @@ def page_trends(d: dict) -> str:
     fields = int(delta * 1_000_000 / 7140)
 
     body = f"""
-<h2>Glacial Lake Trends 2000–2024</h2>
 {notice(TRENDS_NOTICE)}
 
 <h3>Area time-series — top 8 lakes by current area</h3>
@@ -462,7 +493,7 @@ def page_trends(d: dict) -> str:
 {callout(f"**From 2005 to 2024**, total monitored lake area grew by **{delta:.2f} km²** — "
           f"equivalent to approximately **{fields:,} football fields**.", "info")}
 """
-    return layout("trends.html", "Lake Trends", PAGES[2][2], body,
+    return layout("trends.html", "Lake Trends", DESCRIPTIONS[PAGES[2][0]], body,
                   scripts=["trends-page.js"], needs_plotly=True)
 
 
@@ -472,7 +503,6 @@ def page_climate(d: dict) -> str:
         for l in sorted(d["lakes"], key=lambda x: x["lake_name"])
     )
     body = f"""
-<h2>Climate Projections</h2>
 <p class="lede">As temperatures rise, glaciers retreat and meltwater accumulates — causing
 glacial lakes to expand and their moraine dams to weaken. This page projects lake area to 2100
 under two IPCC emissions pathways: <strong>RCP 4.5</strong> (strong mitigation, peak warming
@@ -500,7 +530,7 @@ greater hydrostatic pressure on their dams, directly raising outburst flood prob
           "bands represent ±1σ from the published variance.", "info")}
 {notice(CLIMATE_NOTICE)}
 """
-    return layout("climate.html", "Climate Projections", PAGES[3][2], body,
+    return layout("climate.html", "Climate Projections", DESCRIPTIONS[PAGES[3][0]], body,
                   scripts=["climate-page.js"], needs_plotly=True)
 
 
@@ -509,7 +539,7 @@ def page_ml(d: dict) -> str:
     if not ml["available"]:
         body = "<h2>ML Risk Scoring</h2>" + callout(
             "Model file not found. Run `python data/train_model.py`, then rebuild.", "alert")
-        return layout("ml.html", "ML Risk Scoring", PAGES[4][2], body)
+        return layout("ml.html", "ML Risk Scoring", DESCRIPTIONS[PAGES[4][0]], body)
 
     model_card = f"""
 <h3>Model card</h3>
@@ -530,7 +560,6 @@ figure from this setup overstates real predictive skill.</p>
 """
 
     body = f"""
-<h2>ML-Based Risk Scoring</h2>
 <p class="lede">The formula-based hazard score weights factors by fixed rules. This page adds a
 <strong>Random Forest classifier</strong> trained on confirmed GLOF events, letting the data
 determine which factors matter most. Where the two scores diverge, the scatter plot below
@@ -557,7 +586,7 @@ highlights lakes the formula may be over- or under-rating.</p>
 
 {model_card}
 """
-    return layout("ml.html", "ML Risk Scoring", PAGES[4][2], body,
+    return layout("ml.html", "ML Risk Scoring", DESCRIPTIONS[PAGES[4][0]], body,
                   scripts=["ml-page.js"], needs_plotly=True)
 
 
@@ -584,7 +613,6 @@ def page_change(d: dict) -> str:
         ])
 
     body = f"""
-<h2>Change Detection</h2>
 <p class="lede">Rapid lake expansion is one of the strongest early-warning signals for GLOF
 risk — a growing lake exerts increasing pressure on its dam. This page compares each lake's
 earliest cached observation (baseline) against the most recent, flagging any lake that has
@@ -600,7 +628,7 @@ grown more than 15% as a potential concern.</p>
 {table(["Lake", "Baseline year", "Baseline area (km²)", "Latest year", "Latest area (km²)",
         "Delta (km²)", "Change (%)", "Trend"], rows, numeric={1, 2, 3, 4, 5, 6})}
 """
-    return layout("change.html", "Change Detection", PAGES[5][2], body,
+    return layout("change.html", "Change Detection", DESCRIPTIONS[PAGES[5][0]], body,
                   scripts=["change-page.js"], needs_plotly=True)
 
 
@@ -619,7 +647,6 @@ def page_population(d: dict) -> str:
         ])
 
     body = f"""
-<h2>Population Exposure Analysis</h2>
 <p class="lede">Hazard alone does not determine impact — a high-risk lake above an uninhabited
 valley poses far less threat than a moderate-risk lake above a densely settled floodplain. This
 page estimates the population and buildings within each lake's downstream flood corridor,
@@ -651,7 +678,7 @@ OpenStreetMap building footprints.</p>
 Buildings: OpenStreetMap contributors. Corridors marked <strong>synthetic</strong> use
 buffered centroid paths — treat as indicative only.</p>
 """
-    return layout("population.html", "Population Exposure", PAGES[6][2], body,
+    return layout("population.html", "Population Exposure", DESCRIPTIONS[PAGES[6][0]], body,
                   scripts=["population-page.js"], needs_leaflet=True)
 
 
@@ -686,7 +713,6 @@ def page_methodology(d: dict) -> str:
            else '<p class="muted">GEE script not found at gee_scripts/lake_detection.js</p>')
 
     body = f"""
-<h2>Methodology</h2>
 {callout(METHODOLOGY_NOTICE, "alert")}
 
 <h3>1. Lake detection</h3>
@@ -724,7 +750,7 @@ contributes no hazard points, it never subtracts from the dam-type baseline.</p>
 <h3>5. Google Earth Engine script</h3>
 {gee}
 """
-    return layout("methodology.html", "Methodology", PAGES[7][2], body)
+    return layout("methodology.html", "Methodology", DESCRIPTIONS[PAGES[7][0]], body)
 
 
 def page_downloads(d: dict, out: Path) -> str:
@@ -800,7 +826,6 @@ def page_downloads(d: dict, out: Path) -> str:
     ])
 
     body = f"""
-<h2>Data Downloads</h2>
 <p class="lede">Every dataset behind this site is available below.</p>
 {callout(DOWNLOADS_NOTICE, "alert")}
 
@@ -816,7 +841,7 @@ python data/compute_exposure.py</pre>
 <p class="muted">Source: WorldPop (www.worldpop.org) — School of Geography and Environmental
 Science, University of Southampton. Licence: CC BY 4.0.</p>
 """
-    return layout("downloads.html", "Downloads", PAGES[8][2], body)
+    return layout("downloads.html", "Downloads", DESCRIPTIONS[PAGES[8][0]], body)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -929,7 +954,7 @@ def write_meta(out: Path) -> None:
     urls = "".join(
         f"  <url><loc>{SITE_URL}{url_for(f)}</loc>"
         f"<lastmod>{date.today().isoformat()}</lastmod></url>\n"
-        for f, _, _ in PAGES
+        for f, *_ in PAGES
     )
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'

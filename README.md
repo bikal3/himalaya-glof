@@ -10,7 +10,7 @@ An interactive web application demonstrating a **Glacial Lake Outburst Flood (GL
 >
 > To run the app on real data, load a real inventory with `data/fetch_icimod.py` and real imagery with `data/fetch_sentinel.py`. Do not use the shipped figures for planning, early warning or risk communication.
 
-**Live site:** [himalayaglof.bikal3.com.np](https://himalayaglof.bikal3.com.np) (static, Cloudflare Pages) &nbsp;|&nbsp; **Streamlit version:** [himalaya-glof.streamlit.app](https://himalaya-glof.streamlit.app) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
+**Live site:** [himalayaglof.bikal3.com.np](https://himalayaglof.bikal3.com.np) &nbsp;|&nbsp; **GitHub:** [bikal3/himalaya-glof](https://github.com/bikal3/himalaya-glof)
 
 ![Nepal GLOF Explorer](assets/screenshot.png)
 
@@ -38,10 +38,17 @@ An interactive web application demonstrating a **Glacial Lake Outburst Flood (GL
 git clone https://github.com/bikal3/himalaya-glof.git
 cd himalaya-glof
 pip install -r requirements.txt
-streamlit run app.py
 ```
 
-Run the tests with `python -m pytest tests/ -q`.
+The published site is the static build (see below). The Streamlit app is kept as the local
+development front-end — it renders the same data through the same `utils/` modules, so it is
+the quickest way to check a change interactively:
+
+```bash
+streamlit run app.py           # local dev UI
+python site/build.py --serve   # preview exactly what gets published
+python -m pytest tests/ -q     # tests
+```
 
 ### Offline data preparation (optional)
 
@@ -150,12 +157,22 @@ site/
   vendor/           # Leaflet + Plotly, vendored (no CDN at runtime)
 ```
 
-## Deploy on Streamlit Community Cloud
+## Deploying
 
-1. Fork this repository.
-2. Go to [share.streamlit.io](https://share.streamlit.io) and connect your GitHub account.
-3. Select the repo, branch `main`, entry file `app.py`.
-4. Click **Deploy**. No API keys required — all heavy computation is pre-cached.
+The site is published to Cloudflare Pages by direct upload — Pages is **not** connected to this
+repository, so pushing to `main` does not update the live site. After changing any data file,
+util or page:
+
+```bash
+python site/build.py
+wrangler pages deploy dist --project-name himalaya-glof --branch main
+```
+
+The custom domain `himalayaglof.bikal3.com.np` is a proxied CNAME to `himalaya-glof.pages.dev`.
+
+The vendored assets under `site/vendor/` (Leaflet, Plotly, Source Sans 3) are committed
+deliberately: the published page then loads nothing from a third-party CDN, which keeps the
+strict `Content-Security-Policy` in `site/build.py` workable.
 
 ---
 

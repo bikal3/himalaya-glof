@@ -133,6 +133,37 @@ const GLOF = (() => {
     }
   }
 
+  /* Narrow screens collapse the sidebar behind a toggle. */
+  function initSidebar() {
+    const btn = document.getElementById("sidebar-toggle");
+    if (!btn) return;
+    const close = () => {
+      document.body.classList.remove("nav-open");
+      btn.setAttribute("aria-expanded", "false");
+    };
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = document.body.classList.toggle("nav-open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", (e) => {
+      if (
+        document.body.classList.contains("nav-open") &&
+        !e.target.closest("#sidebar") &&
+        !e.target.closest("#sidebar-toggle")
+      ) {
+        close();
+      }
+    });
+    document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSidebar);
+  } else {
+    initSidebar();
+  }
+
   return {
     RISK_COLOR, RISK_ORDER, BRAND, BRAND_BRIGHT,
     fmt, int, esc, pill, load, baseMap, areaToRadius,
