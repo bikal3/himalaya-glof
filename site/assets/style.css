@@ -1,8 +1,7 @@
 /* Nepal GLOF Explorer — static site.
-   Mirrors the Streamlit app's appearance: Source Sans 3, a left sidebar of grouped
-   navigation on #F1EFE8, borderless metrics with green values, and Streamlit's alert
-   colours. The theme values come from .streamlit/config.toml, with #157A5C in place of
-   #1D9E75 for text on white (5.29:1 vs 3.39:1). */
+   Source Sans 3, a left sidebar of grouped navigation on #F1EFE8, borderless metrics with
+   green values. #157A5C carries text on white rather than the original #1D9E75, which only
+   reached 3.39:1 against 5.29:1. */
 
 @font-face {
   font-family: "Source Sans 3";
@@ -37,7 +36,7 @@
   --line: #DDD9CE;
   --line-soft: #E9E5DA;
 
-  /* Streamlit's alert tints */
+  /* Alert tints */
   --info-bg: rgba(28, 131, 225, .10);
   --info-line: #1C83E1;
   --warn-bg: rgba(255, 227, 18, .16);
@@ -79,7 +78,7 @@ body {
 /* ── Shell ─────────────────────────────────────────────────────────────── */
 .app { display: flex; min-height: 100vh; }
 
-/* ── Sidebar (mirrors st.navigation) ───────────────────────────────────── */
+/* ── Sidebar ───────────────────────────────────────────────────────────── */
 .sidebar {
   width: var(--sidebar-w);
   flex: 0 0 var(--sidebar-w);
@@ -157,7 +156,7 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 2rem 0; }
 .muted { color: var(--ink-soft); font-size: .875rem; }
 .note { color: var(--ink-soft); font-size: .875rem; margin: .35rem 0 1.25rem; }
 
-/* ── Alerts (st.info / st.warning / st.error) ──────────────────────────── */
+/* ── Alerts ────────────────────────────────────────────────────────────── */
 .callout {
   background: var(--warn-bg);
   border-radius: .5rem;
@@ -171,7 +170,7 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 2rem 0; }
 .callout p:first-child { margin-top: 0; }
 .callout p:last-child { margin-bottom: 0; }
 
-/* ── Metrics (st.metric — borderless) ──────────────────────────────────── */
+/* ── Metrics (borderless) ──────────────────────────────────────────────── */
 .metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -232,7 +231,7 @@ button.reset:hover { border-color: var(--brand); color: var(--brand); }
   border: 1px solid #555; vertical-align: middle; margin-right: 6px;
 }
 
-/* ── Tables (st.dataframe) ─────────────────────────────────────────────── */
+/* ── Tables ────────────────────────────────────────────────────────────── */
 .table-wrap {
   overflow-x: auto; margin: .75rem 0 1.5rem;
   border: 1px solid var(--line-soft); border-radius: .5rem;

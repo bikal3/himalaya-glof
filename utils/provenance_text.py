@@ -1,8 +1,7 @@
-"""Provenance notice text.
+"""Provenance notice text, rendered by site/build.py.
 
-Kept free of any Streamlit import so both the Streamlit app (utils/provenance.py)
-and the static site build (site/build.py) render the same words from one source.
-Markdown-flavoured: **bold**, `code` and [links](url) only.
+Kept as data rather than inline HTML so the wording lives in one place and is easy to
+review as prose. Markdown-flavoured: **bold**, *italic*, `code` and [links](url) only.
 """
 
 SIDEBAR_NOTICE = "⚠️ Demonstration data — not for operational or emergency use"

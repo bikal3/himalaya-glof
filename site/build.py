@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build the static Nepal GLOF Explorer site into dist/.
 
-Everything the Streamlit app computes at request time is precomputed here, by the same
-utils modules, and written as JSON. The browser only renders — it never recomputes a
-hazard score or a projection — so the static site and the Streamlit app cannot disagree.
+Every hazard score, projection, ML probability and change figure is computed here by the
+utils modules and written out as JSON. The browser only renders — it never recomputes a
+number — so the published page cannot drift from what the Python produced.
 
 Usage:
     python site/build.py              # build into dist/
@@ -48,8 +48,7 @@ from utils.provenance_text import (
 SITE_URL = "https://himalayaglof.bikal3.com.np"
 REPO_URL = "https://github.com/bikal3/himalaya-glof"
 
-# file, nav label, icon, sidebar group, page title (matches st.title), meta description.
-# Groups and icons mirror the st.navigation call in app.py.
+# file, nav label, icon, sidebar group, page title, meta description.
 PAGES = [
     ("index.html", "Home", "🏔️", "", "🏔️ Nepal GLOF Explorer",
      "Overview metrics and a map of all 25 monitored glacial lakes."),
@@ -161,7 +160,7 @@ def risk_pill(risk_class: str) -> str:
 # Page shell
 # ══════════════════════════════════════════════════════════════════════════════
 def sidebar(filename: str) -> str:
-    """Grouped navigation matching the st.navigation call in app.py."""
+    """Grouped navigation, rendered into every page."""
     out = []
     current_group = None
     for f, label, icon, group, _, _ in PAGES:
@@ -870,7 +869,7 @@ def copy_static(out: Path) -> dict[str, str]:
     if model.exists():
         shutil.copy2(model, data_out / "glof_risk_model.pkl")
 
-    # Zip the per-lake area cache, as the Streamlit Downloads page did.
+    # Bundle the per-lake area cache as a single download.
     cache_dir = ROOT / "data" / "sentinel_cache"
     if cache_dir.exists():
         import zipfile
@@ -890,7 +889,7 @@ def copy_static(out: Path) -> dict[str, str]:
 
 
 def write_pdf(out: Path, lakes: gpd.GeoDataFrame, ts: pd.DataFrame) -> None:
-    """Pre-generate the PDF the Streamlit app produced on demand."""
+    """Pre-generate the PDF summary report served from the Downloads page."""
     try:
         from fpdf import FPDF
     except ImportError:

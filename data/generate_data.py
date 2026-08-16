@@ -1,5 +1,5 @@
 """
-Generate synthetic data for the Nepal GLOF Explorer Streamlit app.
+Generate synthetic data for the Nepal GLOF Explorer.
 
 Outputs:
   data/lakes_timeseries.csv   — 625 rows  (25 lakes × 25 years 2000-2024)
