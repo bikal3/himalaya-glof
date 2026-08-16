@@ -36,6 +36,19 @@ def _encode_dam_type(dam_type: str) -> int:
     return DAM_TYPE_ENCODING.get(str(dam_type).lower().strip(), 0)
 
 
+def _normalize_lake_name(name: str) -> str:
+    """Canonical form for matching a lake across the event catalogue and inventory.
+
+    The two sources name the same lake inconsistently ('Lower Barun Lake' vs
+    'Lower Barun'), so a trailing generic 'lake' token is dropped. Only that token
+    is stripped — 'Rolpa Area Lake' must not collapse onto 'Tsho Rolpa'.
+    """
+    cleaned = " ".join(str(name).lower().split())
+    if cleaned.endswith(" lake"):
+        cleaned = cleaned[: -len(" lake")]
+    return cleaned
+
+
 def build_training_dataframe(
     events_df: pd.DataFrame,
     inventory_df: pd.DataFrame,
@@ -56,8 +69,8 @@ def build_training_dataframe(
     ]].copy()
 
     # Negative examples: inventory lakes not matched by name in events
-    event_names_lower = set(events_df["lake_name"].str.lower().str.strip())
-    neg_mask = ~inventory_df["lake_name"].str.lower().str.strip().isin(event_names_lower)
+    event_names = {_normalize_lake_name(n) for n in events_df["lake_name"]}
+    neg_mask = ~inventory_df["lake_name"].map(_normalize_lake_name).isin(event_names)
     negatives = inventory_df.loc[neg_mask, [
         "area_km2", "area_growth_rate", "dam_type",
         "slope_downstream", "distance_to_settlement_km", "elevation_m",

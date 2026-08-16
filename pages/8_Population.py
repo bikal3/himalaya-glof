@@ -3,8 +3,6 @@ import sys
 from pathlib import Path
 
 import folium
-import pandas as pd
-import plotly.express as px
 import streamlit as st
 from streamlit_folium import st_folium
 
@@ -20,6 +18,12 @@ st.markdown(
     "This page estimates the population and buildings within each lake's downstream flood corridor, "
     "combining [WorldPop Nepal 2020](https://www.worldpop.org/) (100 m resolution) with "
     "OpenStreetMap building footprints."
+)
+st.caption(
+    "⚠️ The population and building counts here are **real**, but they are summed over flood "
+    "corridors derived from the simulated lake inventory — 8 corridors digitised from valley "
+    "topography and 17 straight ±2 km centroid paths. The totals are real people counted inside "
+    "illustrative corridors, not a flood model."
 )
 
 # --- Load data ---
@@ -61,6 +65,14 @@ TIER_COLOR = {"High": "#E63946", "Medium": "#F4A261", "Low": "#1D9E75"}
 m = folium.Map(location=[27.8, 85.5], zoom_start=7, tiles="CartoDB positron")
 
 merged = corridors_gdf.merge(df[["lake_id", "population_at_risk"]], on="lake_id", how="left")
+# A corridor with no matching exposure record draws as zero rather than crashing on NaN.
+missing = merged["population_at_risk"].isna()
+if missing.any():
+    st.caption(
+        f"No exposure record for {missing.sum()} corridor(s): "
+        f"{', '.join(merged.loc[missing, 'lake_name'])} — shown as zero."
+    )
+merged["population_at_risk"] = merged["population_at_risk"].fillna(0)
 
 for _, row in merged.iterrows():
     tier = _exposure_tier(int(row["population_at_risk"]))
@@ -81,22 +93,25 @@ for _, row in merged.iterrows():
         ),
     ).add_to(m)
 
-# Legend
-legend_html = """
+# Legend. Colour chips carry the map colours; every label is dark text on white, so the
+# legend stays readable instead of relying on white-on-orange (2.06:1) and white-on-red (4.17:1).
+_CHIP = (
+    "display:inline-block;width:12px;height:12px;border-radius:2px;"
+    "border:1px solid #555;vertical-align:middle;margin-right:6px;background:"
+)
+legend_html = f"""
 <div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
-            padding:10px 14px;border-radius:8px;border:1px solid #ccc;font-size:13px">
+            padding:10px 14px;border-radius:8px;border:1px solid #ccc;font-size:13px;
+            color:#2C2C2A;line-height:1.7">
   <b>Exposure Tier</b><br>
-  <span style="background:#E63946;padding:2px 8px;border-radius:3px;color:white">High</span>
-  ≥ 10,000 people<br>
-  <span style="background:#F4A261;padding:2px 8px;border-radius:3px;color:white">Medium</span>
-  2,000–9,999<br>
-  <span style="background:#1D9E75;padding:2px 8px;border-radius:3px;color:white">Low</span>
-  &lt; 2,000
+  <span style="{_CHIP}{TIER_COLOR['High']}"></span>High — &ge; 10,000 people<br>
+  <span style="{_CHIP}{TIER_COLOR['Medium']}"></span>Medium — 2,000–9,999<br>
+  <span style="{_CHIP}{TIER_COLOR['Low']}"></span>Low — &lt; 2,000
 </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
 
-st_folium(m, use_container_width=True, height=480)
+st_folium(m, use_container_width=True, height=480, returned_objects=[])
 
 st.markdown("---")
 
@@ -125,7 +140,7 @@ st.dataframe(
         "Buildings at Risk", "Corridor Area (km²)", "Data Source",
     ]],
     hide_index=True,
-    use_container_width=True,
+    width="stretch",
 )
 
 st.caption(

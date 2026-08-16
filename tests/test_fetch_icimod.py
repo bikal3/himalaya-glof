@@ -1,7 +1,6 @@
 """Tests for data/fetch_icimod.py normalization logic."""
 import sys
 import pytest
-import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
 from pathlib import Path

@@ -1,8 +1,11 @@
 /* Nepal GLOF Explorer — custom overrides */
+
+/* #1D9E75 on white is only 3.39:1. The darker #157A5C reaches 5.29:1, which passes
+   WCAG AA for normal-size text as well as large. */
 [data-testid="stMetricValue"] {
     font-size: 2rem;
     font-weight: 700;
-    color: #1D9E75;
+    color: #157A5C;
 }
 [data-testid="stSidebar"] {
     background-color: #F1EFE8;
@@ -11,6 +14,6 @@ h1, h2, h3 {
     color: #2C2C2A;
 }
 .stDownloadButton button {
-    background-color: #1D9E75;
+    background-color: #157A5C;
     color: white;
 }

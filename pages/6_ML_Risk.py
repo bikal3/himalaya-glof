@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
 
@@ -17,9 +16,17 @@ MODEL_PATH = ROOT / "models" / "glof_risk_model.pkl"
 st.title("ML-Based Risk Scoring")
 st.markdown(
     "The formula-based hazard score weights factors by fixed rules. This page adds a "
-    "**Random Forest classifier** trained on confirmed GLOF events from the ICIMOD catalogue, "
-    "letting the data determine which factors matter most. Where the two scores diverge, "
-    "the scatter plot below highlights lakes the formula may be over- or under-rating."
+    "**Random Forest classifier** trained on confirmed GLOF events, letting the data determine "
+    "which factors matter most. Where the two scores diverge, the scatter plot below highlights "
+    "lakes the formula may be over- or under-rating."
+)
+st.warning(
+    "**These probabilities do not measure GLOF risk.** Positive examples come from the event "
+    "catalogue and negative examples from the simulated lake inventory, so the classifier can "
+    "separate the two classes on artefacts of how each file was written rather than on hazard: "
+    "a model trained only on *\"is this value a round number?\"* separates them perfectly "
+    "(AUC 1.00). Cross-validation scores from this setup measure provenance, not skill. Treat "
+    "the page as a demonstration of the workflow."
 )
 
 # Load data
@@ -30,7 +37,7 @@ lakes_df = pd.DataFrame(lakes_gdf.drop(columns="geometry"))
 if not MODEL_PATH.exists():
     st.error(
         f"Model file not found at `{MODEL_PATH}`. "
-        "Run the training step from Task 8 of the implementation plan to generate it."
+        "Run `python data/train_model.py` to train and save it."
     )
     st.stop()
 
@@ -55,7 +62,7 @@ fig_imp = px.bar(
     color_continuous_scale=[[0, "#e8f5e9"], [1, "#1D9E75"]],
 )
 fig_imp.update_layout(coloraxis_showscale=False, height=350)
-st.plotly_chart(fig_imp, use_container_width=True)
+st.plotly_chart(fig_imp, width="stretch")
 
 st.markdown("---")
 
@@ -79,7 +86,7 @@ fig_scatter = px.scatter(
 )
 fig_scatter.update_traces(marker_size=10)
 fig_scatter.update_layout(height=420)
-st.plotly_chart(fig_scatter, use_container_width=True)
+st.plotly_chart(fig_scatter, width="stretch")
 
 st.markdown("---")
 
@@ -98,7 +105,7 @@ display_df = lakes_df[[
 st.dataframe(
     display_df.sort_values("ML Probability", ascending=False),
     hide_index=True,
-    use_container_width=True,
+    width="stretch",
 )
 
 st.markdown("---")
@@ -110,12 +117,20 @@ with st.expander("Model Card"):
 - `n_estimators=100`, `random_state=42`, `class_weight='balanced'`
 
 **Training data:**
-- Positive examples: ICIMOD GLOF event catalogue (`data/glof_events.csv`)
-- Negative examples: inventory lakes with no documented GLOF event
+- Positive examples: GLOF event catalogue (`data/glof_events.csv`) — real events across the
+  wider Hindu Kush Himalaya (Nepal, Bhutan, Tibet, Sikkim), with unverified attribute values
+- Negative examples: inventory lakes with no documented GLOF event, matched by normalised name
+  so that e.g. 'Lower Barun Lake' and 'Lower Barun' are recognised as the same lake
 
 **Features:** {', '.join(FEATURES)}
 
 **Dam type encoding:** moraine=2, ice=1, bedrock=0
+
+**Known limitation:** the positive and negative rows come from separately authored files whose
+numeric formatting differs, which leaks class membership. Any accuracy figure from this setup
+overstates real predictive skill — see the warning at the top of this page.
+
+**Retrain:** `python data/train_model.py`
 
 **Reference:** ICIMOD GLOF Database — https://www.icimod.org/
 """)

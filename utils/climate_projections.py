@@ -17,6 +17,21 @@ _UNCERTAINTY_FACTOR = 0.40  # ±40% of increment for 1σ bands
 _MIN_AREA = 0.01            # km² floor
 
 
+def fractional_growth_rate(area_growth_rate: float, area_0: float) -> float:
+    """Convert an absolute growth rate (km²/yr) to the fractional rate this model needs.
+
+    The lake inventory stores `area_growth_rate` as km² gained per year, but
+    `project_lake_area` compounds its `growth_rate` argument as a fraction of the
+    current area. Feeding the absolute value in directly overstates growth by a
+    factor of 1/area_0 every year.
+
+    Returns 0.0 for a non-positive area_0, where a fractional rate is undefined.
+    """
+    if area_0 <= 0:
+        return 0.0
+    return area_growth_rate / area_0
+
+
 def project_lake_area(
     area_0: float,
     growth_rate: float,

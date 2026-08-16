@@ -5,5 +5,15 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+
+# Large derived inputs, fetched on demand by data/compute_exposure.py
 data/worldpop_nepal_2020.tif
+
+# osmnx Overpass response cache, written while running data/compute_exposure.py
+cache/
+
+# Scratch state from the brainstorming tooling
+.superpowers/
+
+# Internal planning docs — not published
 docs/

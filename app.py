@@ -3,6 +3,8 @@ from pathlib import Path
 
 import streamlit as st
 
+from utils.provenance import sidebar_notice
+
 st.set_page_config(
     page_title="Nepal GLOF Explorer",
     layout="wide",
@@ -40,6 +42,7 @@ pg = st.navigation(
 # ── Persistent sidebar content ──────────────────────────────────────────────
 with st.sidebar:
     st.markdown("---")
+    sidebar_notice()
     st.caption("25 glacial lakes · Nepal Himalaya · 2000–2024")
     st.markdown(
         "[![GitHub](https://img.shields.io/badge/GitHub-bikal3%2Fhimalaya--glof-181717?logo=github&style=flat-square)](https://github.com/bikal3/himalaya-glof)"

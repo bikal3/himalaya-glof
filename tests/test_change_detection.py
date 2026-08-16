@@ -1,14 +1,17 @@
 """Tests for utils/change_detection.py"""
 import json
 import os
-import tempfile
 import pytest
 import pandas as pd
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from utils.change_detection import compute_changes, get_cache_last_updated, ALERT_THRESHOLD_PCT
+from utils.change_detection import (
+    compute_changes,
+    get_cache_last_updated,
+    get_cache_source,
+)
 
 
 def _write_cache(tmp_dir: str, lake_id: str, lake_name: str, scenes: list[dict]) -> None:
@@ -92,3 +95,25 @@ def test_get_cache_last_updated(cache_dir):
 def test_empty_cache_dir(tmp_path):
     df = compute_changes(cache_dir=str(tmp_path))
     assert len(df) == 0
+
+
+def test_get_cache_source_reports_demo_provenance(tmp_path):
+    """The page must state where the cache actually came from, not assume Sentinel-2."""
+    (tmp_path / "L01.json").write_text(json.dumps({
+        "lake_id": "L01", "lake_name": "Tsho Rolpa",
+        "source": "demo_cache_from_timeseries",
+        "scenes": [{"year": 2016, "area_km2": 1.0}, {"year": 2024, "area_km2": 1.2}],
+    }))
+    assert get_cache_source(str(tmp_path)) == "demo_cache_from_timeseries"
+
+
+def test_get_cache_source_reports_sentinel_provenance(tmp_path):
+    (tmp_path / "L01.json").write_text(json.dumps({
+        "lake_id": "L01", "source": "sentinel_hub_mndwi",
+        "scenes": [{"year": 2016, "area_km2": 1.0}, {"year": 2024, "area_km2": 1.2}],
+    }))
+    assert get_cache_source(str(tmp_path)) == "sentinel_hub_mndwi"
+
+
+def test_get_cache_source_unknown_when_absent(tmp_path):
+    assert get_cache_source(str(tmp_path)) == "unknown"

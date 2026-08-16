@@ -1,7 +1,5 @@
 """Tests for utils/ml_model.py"""
 import sys
-import pytest
-import numpy as np
 import pandas as pd
 from pathlib import Path
 
@@ -98,3 +96,34 @@ def test_predict_proba_shape():
 def test_dam_type_encoding_values():
     assert DAM_TYPE_ENCODING["moraine"] > DAM_TYPE_ENCODING["bedrock"]
     assert DAM_TYPE_ENCODING["ice"] > DAM_TYPE_ENCODING["bedrock"]
+
+
+def test_lake_with_documented_event_is_not_labelled_negative():
+    """Inventory names that differ only by a trailing 'Lake' must still match an event.
+
+    Regression: negatives were selected by exact lowercase name match, so the
+    inventory's 'Lower Barun' did not match the event catalogue's 'Lower Barun Lake'
+    and trained as a non-event despite a documented 2020 GLOF.
+    """
+    events = _make_events_df()
+    events.loc[0, "lake_name"] = "Lower Barun Lake"
+    inventory = _make_inventory_gdf()
+    inventory.loc[0, "lake_name"] = "Lower Barun"
+
+    df = build_training_dataframe(events, inventory)
+
+    # 3 positives + 4 remaining negatives — 'Lower Barun' must be excluded
+    assert len(df) == 7
+    assert df["glof_occurred"].sum() == 3
+
+
+def test_distinct_lakes_sharing_a_word_are_not_wrongly_matched():
+    """'Rolpa Area Lake' and 'Tsho Rolpa' are different lakes and must stay separate."""
+    events = _make_events_df()
+    events.loc[0, "lake_name"] = "Rolpa Area Lake"
+    inventory = _make_inventory_gdf()
+    inventory.loc[0, "lake_name"] = "Tsho Rolpa"
+
+    df = build_training_dataframe(events, inventory)
+
+    assert len(df) == 8  # no exclusion: all 5 inventory lakes remain negatives

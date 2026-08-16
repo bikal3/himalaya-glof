@@ -6,12 +6,20 @@ import streamlit as st
 
 st.title("Methodology")
 
+st.warning(
+    "**The numbers in this app are simulated.** This page documents the method the app "
+    "implements and the pipeline it is designed to run on — see *Data Provenance* below for "
+    "exactly which values are measured and which are generated."
+)
+
 # ── Section 1: Lake Detection ─────────────────────────────────────────────
 st.header("1. Lake Detection")
 st.markdown(
     """
-    Glacial lakes are delineated from Landsat 8/9 Surface Reflectance imagery using the
-    **Modified Normalized Difference Water Index (MNDWI)**.
+    Glacial lakes are delineated from Landsat Surface Reflectance imagery using the
+    **Modified Normalized Difference Water Index (MNDWI)**. A 2000–2024 record spans three
+    sensors: Landsat 5 TM and 7 ETM+ for 2000–2012, Landsat 8 OLI from 2013, and Landsat 9
+    from late 2021. Sentinel-2 MSI (10 m) is used from 2016 onward on the Change Detection page.
     """
 )
 st.subheader("Spectral Indices")
@@ -33,7 +41,7 @@ scoring_df = pd.DataFrame(
         ],
     }
 )
-st.dataframe(scoring_df, use_container_width=True, hide_index=True)
+st.dataframe(scoring_df, width="stretch", hide_index=True)
 
 # ── Section 3: Data Sources ───────────────────────────────────────────────
 st.header("3. Data Sources")
@@ -50,7 +58,7 @@ sources_df = pd.DataFrame(
         ],
     }
 )
-st.dataframe(sources_df, use_container_width=True, hide_index=True)
+st.dataframe(sources_df, width="stretch", hide_index=True)
 
 # ── Section 4: GEE Code ───────────────────────────────────────────────────
 st.header("4. Google Earth Engine Script")
@@ -60,23 +68,45 @@ if gee_path.exists():
 else:
     st.warning("GEE script not found at gee_scripts/lake_detection.js")
 
-# ── Section 5: Validation ─────────────────────────────────────────────────
-st.header("5. Validation Against Known GLOF Events")
+# ── Section 5: Data Provenance ────────────────────────────────────────────
+st.header("5. Data Provenance")
 st.markdown(
-    "Risk scores were compared against five documented GLOF events to assess whether the scoring "
-    "methodology reflects real-world hazard."
+    "Which numbers in this application are measured, and which are generated for demonstration:"
 )
-validation_df = pd.DataFrame(
+provenance_df = pd.DataFrame(
     {
-        "Year": [1985, 1991, 1998, 2016, 2020],
-        "Lake": ["Dig Tsho", "Chubung", "Sabai Tsho", "Lhotse Glacier", "Melung Tsho"],
-        "Area at Event (km²)": [0.60, 0.28, 0.51, 0.14, 0.38],
-        "Our Risk Score (that year)": [72, 58, 65, 44, 61],
-        "Risk Class": ["Very High", "High", "High", "Moderate", "High"],
+        "Value": [
+            "Lake names, coordinates, basin, district, elevation",
+            "Lake area 2000–2024",
+            "Area growth rate",
+            "Dam type",
+            "Downstream slope, distance to settlement",
+            "Hazard score and risk class",
+            "Sentinel-2 change detection cache",
+            "GLOF event catalogue",
+            "ML probabilities and climate projections",
+            "Population and building counts",
+            "Flood corridors",
+        ],
+        "Source": [
+            "Real — published lake inventories",
+            "Simulated — data/generate_data.py",
+            "Simulated — data/generate_data.py",
+            "Simulated — random draw, weighted toward moraine",
+            "Simulated — random draw",
+            "Computed from the simulated inputs above",
+            "Derived from the simulated series (data/create_demo_cache.py)",
+            "Real events, unverified attribute values; HKH-wide, not Nepal-only",
+            "Computed from the simulated inputs above",
+            "Real — WorldPop 2020 (100 m) and OpenStreetMap",
+            "8 digitised from valley topography; 17 synthetic centroid paths",
+        ],
     }
 )
-st.dataframe(validation_df, use_container_width=True, hide_index=True)
-st.markdown(
-    "All five events score **Moderate or above**, confirming that the hazard factors capture the "
-    "conditions that preceded real outburst floods."
+st.dataframe(provenance_df, width="stretch", hide_index=True)
+st.info(
+    "Because the hazard inputs are simulated, this app carries **no validation against "
+    "observed GLOF events** — a scoring method built on generated slopes and dam types cannot "
+    "be tested against real outcomes. Validation becomes meaningful once a real inventory is "
+    "loaded via `data/fetch_icimod.py`."
 )

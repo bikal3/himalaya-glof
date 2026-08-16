@@ -4,8 +4,10 @@ from pathlib import Path
 
 import geopandas as gpd
 import pandas as pd
+import streamlit as st
 
 
+@st.cache_data
 def load_exposure(path: str = "data/population_exposure.json") -> pd.DataFrame:
     """
     Load pre-computed population exposure JSON.
@@ -31,6 +33,7 @@ def load_exposure(path: str = "data/population_exposure.json") -> pd.DataFrame:
     return df
 
 
+@st.cache_data
 def load_buffered_corridors(path: str = "data/flood_corridors_buffered.geojson") -> gpd.GeoDataFrame:
     """
     Load buffered corridor polygons.

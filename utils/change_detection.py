@@ -72,6 +72,28 @@ def compute_changes(
     return df.sort_values("pct_change", ascending=False).reset_index(drop=True)
 
 
+def get_cache_source(cache_dir: str = "data/sentinel_cache") -> str:
+    """Return the `source` recorded in the cache files.
+
+    Cache files written by fetch_sentinel.py record 'sentinel_hub_mndwi'; those
+    written by create_demo_cache.py record 'demo_cache_from_timeseries'. The page
+    labels its numbers from this value rather than assuming real observations.
+
+    Returns 'unknown' if no cache file declares a source, or 'mixed' if they disagree.
+    """
+    sources = set()
+    for json_file in Path(cache_dir).glob("*.json"):
+        with open(json_file) as f:
+            data = json.load(f)
+        if data.get("source"):
+            sources.add(data["source"])
+    if not sources:
+        return "unknown"
+    if len(sources) > 1:
+        return "mixed"
+    return sources.pop()
+
+
 def get_cache_last_updated(cache_dir: str = "data/sentinel_cache") -> str:
     """Return the most recent last_updated date string across all cache files.
 

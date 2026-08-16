@@ -92,7 +92,8 @@ def build_glof_map(
             fill_color=color,
             fill_opacity=0.5,
             popup=folium.Popup(popup_html, max_width=220),
-            tooltip=row["lake_name"],
+            # Name the risk class in the tooltip so it is not conveyed by colour alone.
+            tooltip=f"{row['lake_name']} — {row['risk_class']} risk",
         ).add_to(lake_group)
     lake_group.add_to(m)
 

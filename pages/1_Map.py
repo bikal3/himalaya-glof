@@ -1,11 +1,14 @@
 """Page 1 — Interactive GLOF Hazard Map."""
+import pandas as pd
 import streamlit as st
 from streamlit_folium import st_folium
 
 from utils.data_loader import load_corridors_gdf, load_lakes_gdf, load_timeseries
 from utils.map_builder import build_glof_map
+from utils.provenance import page_notice
 
 st.title("Interactive GLOF Hazard Map")
+page_notice("hazard scores and risk classes are computed from simulated lake attributes.")
 
 lakes_gdf = load_lakes_gdf()
 corridors_gdf = load_corridors_gdf()
@@ -53,12 +56,22 @@ col4.metric("Largest lake", fastest_lake)
 # ── Folium map ─────────────────────────────────────────────────────────────
 filtered_corridors = corridors_gdf[corridors_gdf["lake_id"].isin(filtered_ids)]
 m = build_glof_map(filtered, filtered_corridors)
-st_folium(m, height=600, use_container_width=True)
+# returned_objects=[] — the filters drive the map, not the other way round, so map
+# interaction should not trigger a rerun.
+st_folium(m, height=600, use_container_width=True, returned_objects=[])
 
 # ── Data table ─────────────────────────────────────────────────────────────
 st.subheader("Filtered Lakes")
 display_cols = ["lake_name", "area_km2", "risk_class", "district", "basin", "dam_type"]
+# Sort by severity, not alphabetically (which would give High, Low, Moderate, Very High).
+severity = pd.Categorical(
+    filtered["risk_class"], categories=["Very High", "High", "Moderate", "Low"], ordered=True
+)
 st.dataframe(
-    filtered[display_cols].sort_values("risk_class").reset_index(drop=True),
-    use_container_width=True,
+    filtered[display_cols]
+    .assign(_severity=severity)
+    .sort_values(["_severity", "area_km2"], ascending=[True, False])
+    .drop(columns="_severity")
+    .reset_index(drop=True),
+    width="stretch",
 )

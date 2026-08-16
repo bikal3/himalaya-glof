@@ -3,8 +3,10 @@ import plotly.express as px
 import streamlit as st
 
 from utils.data_loader import load_lakes_gdf, load_timeseries
+from utils.provenance import page_notice
 
 st.title("Glacial Lake Trends 2000–2024")
+page_notice("the area series plotted here is simulated, not measured from imagery.")
 
 df = load_timeseries()
 lakes_gdf = load_lakes_gdf()
@@ -25,7 +27,7 @@ fig2 = px.line(
     labels={"year": "Year", "area_km2": "Area (km²)", "lake_name": "Lake"},
 )
 fig2.update_layout(legend=dict(orientation="v", x=1.02, y=1))
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig2, width="stretch")
 
 # ── Chart 3: area by basin ────────────────────────────────────────────────
 st.subheader("Total Lake Area by Basin (2024)")
@@ -45,7 +47,7 @@ fig3 = px.bar(
     color_discrete_sequence=[PRIMARY],
 )
 fig3.update_layout(xaxis_title="Basin", yaxis_title="Total Area (km²)")
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(fig3, width="stretch")
 
 # ── Chart 4: risk score distribution ─────────────────────────────────────
 st.subheader("Risk Score Distribution")
@@ -59,7 +61,7 @@ fig4 = px.histogram(
     labels={"risk_score": "Risk Score (0–100)"},
 )
 fig4.update_layout(yaxis_title="Number of Lakes", xaxis_title="Risk Score")
-st.plotly_chart(fig4, use_container_width=True)
+st.plotly_chart(fig4, width="stretch")
 
 # ── Callout text box ──────────────────────────────────────────────────────
 area_2005 = df[df["year"] == 2005]["area_km2"].sum()

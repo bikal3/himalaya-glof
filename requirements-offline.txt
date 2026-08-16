@@ -1,4 +1,9 @@
-# Dependencies for the offline data preparation script: data/compute_exposure.py
-# Not installed in the Streamlit Cloud deployment.
-rasterio>=1.3.0
-osmnx>=1.9.0
+# Dependencies for the offline data preparation scripts. Not installed in the
+# Streamlit Cloud deployment — keeping them out of requirements.txt keeps the
+# cold start smaller.
+#   data/compute_exposure.py  — rasterio, osmnx
+#   data/fetch_sentinel.py    — sentinelhub, python-dotenv
+rasterio~=1.5.0
+osmnx~=2.1.0
+sentinelhub~=3.11.5
+python-dotenv~=1.1.0

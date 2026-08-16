@@ -24,6 +24,8 @@ import sys
 from datetime import date
 from pathlib import Path
 
+import pandas as pd
+
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
@@ -144,6 +146,21 @@ def fetch_lake_areas(
     return sorted(scenes, key=lambda s: s["year"])
 
 
+def lake_centroid(row) -> tuple[float, float]:
+    """Return (lon, lat) for an inventory row.
+
+    lakes_risk.geojson stores position only in its Point geometry, while files
+    written by fetch_icimod.py also carry explicit centroid columns. Prefer the
+    explicit columns when present and fall back to the geometry, so the script
+    works with either schema.
+    """
+    lon = row.get("centroid_lon")
+    lat = row.get("centroid_lat")
+    if lon is not None and lat is not None and pd.notna(lon) and pd.notna(lat):
+        return float(lon), float(lat)
+    return float(row.geometry.x), float(row.geometry.y)
+
+
 def _lake_bbox(
     centroid_lon: float,
     centroid_lat: float,
@@ -199,7 +216,7 @@ def main() -> None:
         lake_name = row["lake_name"]
         print(f"Fetching {lake_id} ({lake_name})...", end=" ", flush=True)
 
-        bbox = _lake_bbox(row["centroid_lon"], row["centroid_lat"])
+        bbox = _lake_bbox(*lake_centroid(row))
         scenes = fetch_lake_areas(lake_id, lake_name, bbox, client_id, client_secret)
 
         payload = {
