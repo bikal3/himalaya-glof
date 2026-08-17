@@ -32,6 +32,7 @@ from utils.change_detection import compute_changes, get_cache_last_updated, get_
 from utils.climate_projections import fractional_growth_rate, project_lake_area
 from utils.exposure import load_buffered_corridors, load_exposure
 from utils.ml_model import FEATURES, load_model, predict_proba
+from utils.risk_score import classify
 from utils.provenance_text import (
     CACHE_SOURCE_LABELS,
     CLIMATE_NOTICE,
@@ -250,6 +251,40 @@ def layout(filename: str, title: str, description: str, body: str,
 # ══════════════════════════════════════════════════════════════════════════════
 # Data preparation
 # ══════════════════════════════════════════════════════════════════════════════
+RISK_BIN_WIDTH = 5      # 35 / 55 / 75 are all multiples, so no bin straddles a class boundary
+
+
+def risk_histogram(scores: list[float]) -> list[dict]:
+    """Bin hazard scores for the distribution chart.
+
+    Binned here rather than in the browser because plotly-basic — the bundle this site
+    vendors — ships only bar, pie and scatter. A `histogram` trace silently degrades to a
+    scatter, which is what turned this chart into a zigzag line.
+
+    Width 5 divides every class threshold, so each bar sits wholly inside one risk class
+    and can be coloured by it. 25 lakes over 20 bins (the old setting) left most bars at a
+    count of 1 and seven bins empty, which read as noise.
+    """
+    if not scores:
+        return []
+    lo = int(min(scores) // RISK_BIN_WIDTH) * RISK_BIN_WIDTH
+    hi = int(max(scores) // RISK_BIN_WIDTH + 1) * RISK_BIN_WIDTH
+
+    bins = []
+    for start in range(lo, hi, RISK_BIN_WIDTH):
+        end = start + RISK_BIN_WIDTH
+        # Upper edge is inclusive only for the final bin, so no score is counted twice.
+        in_bin = [s for s in scores if start <= s < end or (end == hi and s == end)]
+        bins.append({
+            "start": start,
+            "end": end,
+            "mid": start + RISK_BIN_WIDTH / 2,
+            "count": len(in_bin),
+            "risk_class": classify(start),
+        })
+    return bins
+
+
 def prepare_data() -> dict:
     """Load every input and precompute everything the pages display."""
     lakes = gpd.read_file(ROOT / "data" / "lakes_risk.geojson")
@@ -319,6 +354,7 @@ def prepare_data() -> dict:
 
     return {
         "lakes": lake_records,
+        "risk_bins": risk_histogram([r["risk_score"] for r in lake_records]),
         "timeseries": ts,
         "corridors": corridors,
         "buffered": buffered,
@@ -340,6 +376,7 @@ def write_site_data(d: dict, out: Path) -> None:
     (sd / "lakes.json").write_text(json.dumps(d["lakes"], separators=(",", ":")))
     (sd / "climate.json").write_text(json.dumps(d["climate"], separators=(",", ":")))
     (sd / "ml.json").write_text(json.dumps(d["ml"], separators=(",", ":")))
+    (sd / "risk-bins.json").write_text(json.dumps(d["risk_bins"], separators=(",", ":")))
 
     ts_out = {}
     for lake_id, grp in d["timeseries"].groupby("lake_id"):
@@ -489,7 +526,7 @@ def page_trends(d: dict) -> str:
 <h3>Total lake area by basin (2024)</h3>
 <div id="chart-basin" class="chart"></div>
 
-<h3>Risk score distribution</h3>
+<h3>Hazard score distribution</h3>
 <div id="chart-hist" class="chart"></div>
 
 {callout(f"**From 2005 to 2024**, total monitored lake area grew by **{delta:.2f} km²** — "

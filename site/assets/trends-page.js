@@ -61,24 +61,47 @@
       GLOF.PLOT_CONFIG
     );
 
-    /* 3. Risk score distribution */
+    /* 3. Risk score distribution.
+       Bars, not a histogram trace: the vendored plotly-basic bundle ships only bar, pie
+       and scatter, and an unsupported trace type degrades to a scatter. Bins come
+       precomputed from Python, each one wholly inside a single risk class. */
+    const bins = await GLOF.load("risk-bins.json");
+    const width = bins.length ? bins[0].end - bins[0].start : 5;
+
+    const binTraces = GLOF.RISK_ORDER.filter((rc) => bins.some((b) => b.risk_class === rc)).map(
+      (rc) => {
+        const group = bins.filter((b) => b.risk_class === rc);
+        return {
+          x: group.map((b) => b.mid),
+          y: group.map((b) => b.count),
+          name: rc,
+          type: "bar",
+          width: width * 0.92,
+          marker: { color: GLOF.RISK_COLOR[rc] },
+          customdata: group.map((b) => [b.start, b.end]),
+          hovertemplate:
+            "Score %{customdata[0]}–%{customdata[1]} (" + rc +
+            ")<br>%{y} lake(s)<extra></extra>",
+        };
+      }
+    );
+
+    const total = bins.reduce((s, b) => s + b.count, 0);
     Plotly.newPlot(
       document.getElementById("chart-hist"),
-      [
-        {
-          x: lakes.map((l) => l.risk_score),
-          type: "histogram",
-          nbinsx: 20,
-          marker: { color: GLOF.BRAND },
-          hovertemplate: "Score %{x}<br>%{y} lakes<extra></extra>",
-        },
-      ],
+      binTraces,
       GLOF.layout({
-        title: "Distribution of GLOF risk scores",
-        xaxis: { title: "Risk score (0–100)" },
-        yaxis: { title: "Number of lakes" },
-        height: 360,
-        bargap: 0.05,
+        title: `Distribution of GLOF hazard scores (${total} lakes)`,
+        xaxis: {
+          title: "Hazard score (0–100)",
+          dtick: 10,
+          range: [bins[0].start - width / 2, bins[bins.length - 1].end + width / 2],
+        },
+        yaxis: { title: "Number of lakes", dtick: 1, rangemode: "tozero" },
+        height: 380,
+        bargap: 0.08,
+        barmode: "stack",
+        legend: { orientation: "h", y: -0.22 },
       }),
       GLOF.PLOT_CONFIG
     );

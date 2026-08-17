@@ -1,6 +1,23 @@
 """GLOF hazard scoring utilities."""
 from __future__ import annotations
 
+# Score floor for each class, highest first. The single source of these thresholds:
+# the scorer, the risk-class colouring and the distribution chart all read them here.
+RISK_THRESHOLDS: list[tuple[float, str]] = [
+    (75.0, "Very High"),
+    (55.0, "High"),
+    (35.0, "Moderate"),
+    (0.0, "Low"),
+]
+
+
+def classify(score: float) -> str:
+    """Return the risk class for a hazard score."""
+    for floor, risk_class in RISK_THRESHOLDS:
+        if score >= floor:
+            return risk_class
+    return "Low"
+
 
 def compute_risk_score(
     area_km2: float,
@@ -28,13 +45,4 @@ def compute_risk_score(
     score = min(100.0, dam_score + growth_score + slope_score + settle_score)
     score = round(score, 1)
 
-    if score >= 75:
-        risk_class = "Very High"
-    elif score >= 55:
-        risk_class = "High"
-    elif score >= 35:
-        risk_class = "Moderate"
-    else:
-        risk_class = "Low"
-
-    return score, risk_class
+    return score, classify(score)

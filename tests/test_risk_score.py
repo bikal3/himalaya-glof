@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from utils.risk_score import compute_risk_score
+from utils.risk_score import classify, compute_risk_score
 
 
 def test_shrinking_lake_scores_no_growth_points():
@@ -72,3 +72,28 @@ def test_risk_class_boundaries():
     assert compute_risk_score(1.0, 0.05, "bedrock", 0.0, 1000.0)[1] == "Moderate"   # 35
     assert compute_risk_score(1.0, 0.05, "ice", 0.0, 1000.0)[1] == "High"           # 55
     assert compute_risk_score(1.0, 0.05, "moraine", 35.0, 1000.0)[1] == "Very High" # 85
+
+
+def test_classify_boundaries():
+    """Class floors are 35 / 55 / 75, shared by the scorer and the distribution chart."""
+    assert classify(0.0) == "Low"
+    assert classify(34.99) == "Low"
+    assert classify(35.0) == "Moderate"
+    assert classify(54.99) == "Moderate"
+    assert classify(55.0) == "High"
+    assert classify(74.99) == "High"
+    assert classify(75.0) == "Very High"
+    assert classify(100.0) == "Very High"
+
+
+def test_compute_risk_score_agrees_with_classify():
+    """The scorer must not carry its own copy of the thresholds."""
+    cases = [
+        (0.5, 0.001, "bedrock", 2.0, 79.0),
+        (1.0, 0.03, "ice", 20.0, 40.0),
+        (2.0, 0.05, "moraine", 35.0, 0.0),
+        (0.2, 0.0, "bedrock", 0.0, 100.0),
+    ]
+    for args in cases:
+        score, risk_class = compute_risk_score(*args)
+        assert risk_class == classify(score)
