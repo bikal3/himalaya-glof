@@ -38,13 +38,8 @@
 
   /* Alert tints */
   --info-bg: rgba(28, 131, 225, .10);
-  --info-line: #1C83E1;
   --warn-bg: rgba(255, 227, 18, .16);
-  --warn-line: #D9AB00;
   --error-bg: rgba(255, 43, 43, .09);
-  --error-line: #FF2B2B;
-  --success-bg: rgba(33, 195, 84, .10);
-  --success-line: #21C354;
 
   --risk-veryhigh: #7B1FA2;
   --risk-high: #C1121F;
@@ -166,7 +161,6 @@ hr { border: none; border-top: 1px solid var(--line-soft); margin: 2rem 0; }
 }
 .callout.info { background: var(--info-bg); }
 .callout.alert { background: var(--error-bg); }
-.callout.success { background: var(--success-bg); }
 .callout p:first-child { margin-top: 0; }
 .callout p:last-child { margin-bottom: 0; }
 

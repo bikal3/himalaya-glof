@@ -77,7 +77,6 @@ DESCRIPTIONS = {f: desc for f, _, _, _, _, desc in PAGES}
 TITLES = {f: title for f, _, _, _, title, _ in PAGES}
 
 RISK_ORDER = ["Very High", "High", "Moderate", "Low"]
-TIER_COLOR = {"High": "#E63946", "Medium": "#F4A261", "Low": "#1D9E75"}
 
 
 def url_for(filename: str) -> str:
@@ -150,11 +149,6 @@ def table(headers: list, rows: list[list], numeric: set[int] | None = None,
         f'<div class="table-wrap"><table>{cap}<thead><tr>{head}</tr></thead>'
         f'<tbody>{"".join(body)}</tbody></table></div>'
     )
-
-
-def risk_pill(risk_class: str) -> str:
-    slug = risk_class.lower().replace(" ", "")
-    return f'<span class="pill {slug}">{esc(risk_class)}</span>'
 
 
 # ══════════════════════════════════════════════════════════════════════════════
